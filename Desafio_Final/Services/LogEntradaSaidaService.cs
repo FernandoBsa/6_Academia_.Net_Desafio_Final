@@ -89,7 +89,7 @@ namespace Desafio_Final.Services
                     ProdutoId = (int)e.ProdutoId,
                     Quantidade = (int)e.Quantidade,
                     TipoMovimento = e.TipoMovimento,
-                    DataMovimento = e.DataMovimento,
+                    DataMovimento = e.DataMovimento
                 })
                 .ToList();
 
