@@ -32,6 +32,11 @@
   fill: currentColor;
 }
 
+.nav-link:hover {
+  background-color: #007bff;
+}
+
+
 .nav-scroller {
   position: relative;
   z-index: 2;

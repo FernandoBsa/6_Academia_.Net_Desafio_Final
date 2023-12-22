@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h1 class="modal-title fs-5">Novo Produto</h1>
+    <button type="button" class="btn-close" (click)="bsModalRef.hide()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+        <div class="mb-3">
+          <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
+          <input type="text" class="form-control" id="nomeProduto">
+        </div>
+        <div class="mb-3">
+          <label for="fabricanteProduto" class="col-form-label">Fabricante:</label>
+          <input type="text" class="form-control" id="fabricanteProduto">
+        </div>
+        <div class="mb-3">
+          <label for="quantidadeProduto" class="col-form-label">Quantidade:</label>
+          <input type="number" class="form-control" id="quantidadeProduto">
+        </div>
+        <div class="mb-3">
+          <label for="precoProduto" class="col-form-label">Preço Unitário:</label>
+          <input type="text" class="form-control" id="precoProduto">
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Fechar</button>
+    <button type="button" class="btn btn-primary">Salvar</button>
+  </div>

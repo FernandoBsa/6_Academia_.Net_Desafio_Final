@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h1 class="modal-title fs-5">Registrar Saída de Produto</h1>
+    <button type="button" class="btn-close" (click)="bsModalRef.hide()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+        <div class="mb-3">
+            <label for="nomeProduto" class="col-form-label">Id do Produto:</label>
+            <input type="text" class="form-control" id="nomeProduto">
+          </div>
+          <div class="mb-3">
+            <label for="quantidadeProduto" class="col-form-label">Quantidade:</label>
+            <input type="number" class="form-control" id="quantidadeProduto">
+          </div>
+          <div class="mb-3">
+              <label for="dataProduto" class="col-form-label">Data:</label>
+              <input type="date" class="form-control" id="dataProduto">
+            </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Fechar</button>
+    <button type="button" class="btn btn-danger">Registrar Saída</button>
+  </div>
