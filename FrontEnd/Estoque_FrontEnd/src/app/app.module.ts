@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { CadastroProdutoModalComponent } from './tabela-estoque/cadastro-produto-modal/cadastro-produto-modal.component';
 import { EntradaProdutoModalComponent } from './tabela-estoque/entrada-produto-modal/entrada-produto-modal.component';
 import { SaidaProdutoModalComponent } from './tabela-estoque/saida-produto-modal/saida-produto-modal.component';
+import { LoginEstoqueComponent } from './login-estoque/login-estoque.component';
+import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { SaidaProdutoModalComponent } from './tabela-estoque/saida-produto-modal
     CadastroProdutoModalComponent,
     EntradaProdutoModalComponent,
     SaidaProdutoModalComponent,
+    LoginEstoqueComponent,
+    ContatoEstoqueComponent,
   ],
   imports: [
     BrowserModule,
