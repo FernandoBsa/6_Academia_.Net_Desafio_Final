@@ -19,7 +19,7 @@
                             <td>{{ lancamento.produtoId }}</td>
                             <td>{{ lancamento.tipoMovimento }}</td>
                             <td>{{ lancamento.quantidade }}</td>
-                            <td>{{ lancamento.dataMovimento }}</td>
+                            <td>{{ lancamento.dataMovimento | date: 'dd/MM/yyyy' }}</td>
                     </tbody>
                 </table>
             </div>
