@@ -39,23 +39,23 @@
       <table class="table mx-auto table-bordered table-hover">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col" style="width: 30%;">Nome</th>
-            <th scope="col">Fabricante</th>
-            <th scope="col">Quantidade</th>
-            <th scope="col">Preco Unitario</th>
-            <th scope="col" style="width: 15%;">Ações</th>
+            <th scope="col" style="width: 10%;">ID</th>
+            <th scope="col" style="width: 20%;">Nome</th>
+            <th scope="col" style="width: 10%;">Fabricante</th>
+            <th scope="col" style="width: 10%;">Quantidade</th>
+            <th scope="col" style="width: 10%;">Preco Unitario</th>
+            <th scope="col" style="width: 11%;">Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Item 1</td>
-            <td>Descrição do Item 1</td>
-            <td>10</td>
-            <td>10</td>
+          <tr *ngFor="let produto of produtos">
+            <th scope="row">{{ produto.id }}</th>
+            <td>{{ produto.nomeProduto }}</td>
+            <td>{{ produto.fabricante }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>{{ produto.precoUnitario }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-sm">
+              <button type="button" class="btn btn-primary btn-sm" (click)="abrirModalEditarProduto()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-pencil-fill" viewBox="0 0 16 16">
                   <path
@@ -63,7 +63,7 @@
                 </svg>
                 Editar
               </button>
-              <button type="button" class="btn btn-danger btn-sm">
+              <button type="button" class="btn btn-danger btn-sm" (click)="confirmarExclusao(produto.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-file-earmark-x-fill" viewBox="0 0 16 16">
                   <path

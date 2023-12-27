@@ -18,6 +18,7 @@ namespace Desafio_Final
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddDIConfiguration();
+            builder.Services.AddCorsConfiguration();
 
             var app = builder.Build();
 
@@ -29,6 +30,8 @@ namespace Desafio_Final
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 

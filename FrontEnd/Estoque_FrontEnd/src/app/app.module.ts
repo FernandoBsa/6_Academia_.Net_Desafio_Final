@@ -15,6 +15,7 @@ import { EntradaProdutoModalComponent } from './tabela-estoque/entrada-produto-m
 import { SaidaProdutoModalComponent } from './tabela-estoque/saida-produto-modal/saida-produto-modal.component';
 import { LoginEstoqueComponent } from './login-estoque/login-estoque.component';
 import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.component';
+import { EditarProdutoModalComponent } from './tabela-estoque/editar-produto-modal/editar-produto-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.compo
     SaidaProdutoModalComponent,
     LoginEstoqueComponent,
     ContatoEstoqueComponent,
+    EditarProdutoModalComponent,
   ],
   imports: [
     BrowserModule,

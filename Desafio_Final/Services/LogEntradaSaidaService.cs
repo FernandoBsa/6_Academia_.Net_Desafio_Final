@@ -86,6 +86,7 @@ namespace Desafio_Final.Services
             var logs = _contexto.LogEntradaSaida
                 .Select(e => new LogConsultaViewModel
                 {
+                    Id = e.Id,
                     ProdutoId = (int)e.ProdutoId,
                     Quantidade = (int)e.Quantidade,
                     TipoMovimento = e.TipoMovimento,

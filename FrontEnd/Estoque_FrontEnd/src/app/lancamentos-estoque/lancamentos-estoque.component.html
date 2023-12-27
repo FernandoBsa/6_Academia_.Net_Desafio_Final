@@ -14,6 +14,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr *ngFor="let lancamento of lancamentos">
+                            <th scope="row">{{ lancamento.id }}</th>
+                            <td>{{ lancamento.produtoId }}</td>
+                            <td>{{ lancamento.tipoMovimento }}</td>
+                            <td>{{ lancamento.quantidade }}</td>
+                            <td>{{ lancamento.dataMovimento }}</td>
                     </tbody>
                 </table>
             </div>
