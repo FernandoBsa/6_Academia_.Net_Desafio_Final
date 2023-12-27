@@ -21,12 +21,6 @@ namespace Desafio_Final
 
             var app = builder.Build();
 
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -38,11 +32,7 @@ namespace Desafio_Final
 
             app.UseAuthorization();
 
-
-            app.MapControllers(name: "default",
-                pattern:"{controller=Home}/{action=Index}/{id?}");
-
-
+            app.MapControllers();
 
             app.Run();
         }
