@@ -4,11 +4,9 @@ import { CadastroProdutoModalComponent } from './cadastro-produto-modal/cadastro
 import { EntradaProdutoModalComponent } from './entrada-produto-modal/entrada-produto-modal.component';
 import { SaidaProdutoModalComponent } from './saida-produto-modal/saida-produto-modal.component';
 import { EstoqueService } from '../services/estoque.service';
-import { response } from 'express';
-import { error } from 'console';
 import { EstoqueViewModel } from '../model/estoqueviewmodel';
 import { EditarProdutoModalComponent } from './editar-produto-modal/editar-produto-modal.component';
-import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -19,8 +17,9 @@ import { Router } from '@angular/router';
 export class TabelaEstoqueComponent {
   modalRef: BsModalRef | undefined;
   produtos: EstoqueViewModel[] = [];
+  idProduto: number = 0
 
-  constructor(private modalService: BsModalService, private estoqueService: EstoqueService, private router: Router) { }
+  constructor(private modalService: BsModalService, private estoqueService: EstoqueService, private modalServiceConfirmacao: NgbModal) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -36,21 +35,38 @@ export class TabelaEstoqueComponent {
     );
   }
 
-  confirmarExclusao(produtoId: number): void {
-    const confirmacao = window.confirm('Deseja realmente excluir este produto?');
-    if (confirmacao) {
-      this.excluirProduto(produtoId);
-    }
-  }
+  // confirmarExclusao(produtoId: number): void {
+  //   const confirmacao = window.confirm('Deseja realmente excluir este produto?');
+  //   if (confirmacao) {
+  //     this.excluirProduto(produtoId);
+  //   }
+  // }
 
   excluirProduto(produtoId: number): void {
     this.estoqueService.excluirProduto(produtoId).subscribe({
       next: (response) => {
-        console.log('Produto excluído com sucesso', response);
+        console.log('Produto excluído com sucesso');
+        this.modalServiceConfirmacao.dismissAll();
       },
       error: (error) => {
         console.error('Erro ao excluir produto', error);
+        this.modalServiceConfirmacao.dismissAll();
       }
+    });
+  }
+
+  excluir() {
+    this.excluirProduto(this.idProduto)
+  }
+
+  openConfirmacao(content: any, id: number) {
+    this.idProduto = id;
+    this.modalServiceConfirmacao.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result: any) => {
+      this.idProduto = 0;
+      this.carregarProdutos();
+    }).catch((reason: any) => {
+      this.idProduto = 0;
+      this.carregarProdutos();
     });
   }
 

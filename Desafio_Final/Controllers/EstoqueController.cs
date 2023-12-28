@@ -23,16 +23,16 @@ namespace Desafio_Final.Controllers
         {
             if (produtoViewModel == null)
             {
-                return BadRequest("Dados do produto inválidos");
+                return BadRequest("Dados do produto inválidos.");
             }
 
             if (_estoqueService.CadastrarProduto(produtoViewModel))
             {
-                return Ok("Produto cadastrado com sucesso");
+                return Ok("Produto cadastrado com sucesso.");
             }
             else
             {
-                return NotFound("Produto não encontrando.");
+                return BadRequest("Produto ja cadastrado.");
             }
         }
 
@@ -74,10 +74,10 @@ namespace Desafio_Final.Controllers
         {
             if (_estoqueService.ExcluirProduto(produtoId))
             {
-                return Ok("Produto excluído com sucesso");
+                return Ok(new { sucess = "Produto excluído com sucesso" });
             }
 
-            return NotFound("Produto não encontrado");
+            return NotFound(new { error = "Produto não encontrado" });
         }
 
         [HttpGet]

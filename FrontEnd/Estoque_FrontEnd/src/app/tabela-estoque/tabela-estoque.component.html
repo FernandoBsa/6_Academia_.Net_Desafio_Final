@@ -63,7 +63,7 @@
                 </svg>
                 Editar
               </button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="confirmarExclusao(produto.id)">
+              <button type="button" class="btn btn-danger btn-sm" (click)="openConfirmacao(confirma, produto.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-file-earmark-x-fill" viewBox="0 0 16 16">
                   <path
@@ -78,3 +78,18 @@
     </div>
   </div>
 </div>
+<ng-template #confirma let-modal>
+  <div class="modal-confirma">
+      <div class="modal-header">
+          <h5 class="modal-title" id="modalExcluirLabel">Confirmar exclusão</h5>
+          <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+          <p>Tem certeza que deseja excluir o Produto de ID: {{idProduto}}</p>
+      </div>
+      <div class="modal-footer justify-content-between  ">
+          <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="excluir()">Excluir</button>
+      </div>
+  </div>
+</ng-template>

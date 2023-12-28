@@ -16,6 +16,7 @@ import { SaidaProdutoModalComponent } from './tabela-estoque/saida-produto-modal
 import { LoginEstoqueComponent } from './login-estoque/login-estoque.component';
 import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.component';
 import { EditarProdutoModalComponent } from './tabela-estoque/editar-produto-modal/editar-produto-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { EditarProdutoModalComponent } from './tabela-estoque/editar-produto-mod
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     provideClientHydration()
