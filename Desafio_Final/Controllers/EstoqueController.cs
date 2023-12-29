@@ -21,18 +21,27 @@ namespace Desafio_Final.Controllers
         [Route("CadastroProduto")]
         public IActionResult CadastroProduto([FromBody] CadastroEstoqueViewModel produtoViewModel)
         {
-            if (produtoViewModel == null)
+            try
             {
-                return BadRequest("Dados do produto inválidos.");
-            }
+                if (produtoViewModel == null)
+                {
+                    return BadRequest(new { error = "Dados do produto inválidos." });
+                }
 
-            if (_estoqueService.CadastrarProduto(produtoViewModel))
-            {
-                return Ok("Produto cadastrado com sucesso.");
+                var (sucesso, mensagem) = _estoqueService.CadastrarProduto(produtoViewModel);
+
+                if (sucesso)
+                {
+                    return Ok(new { success = mensagem });
+                }
+                else
+                {
+                    return BadRequest(new { error = mensagem });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Produto ja cadastrado.");
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
             }
         }
 
@@ -40,57 +49,95 @@ namespace Desafio_Final.Controllers
         [HttpGet]
         [Route("ConsultarTodosProdutos")]
         public IActionResult ConsultarTodosProdutos()
-        {            
-            var produtos = _estoqueService.ConsultarTodosProdutos();
-
-            if (produtos == null || !produtos.Any())
+        {
+            try
             {
-                return NotFound();
-            }
+                var produtos = _estoqueService.ConsultarTodosProdutos();
 
-            return Ok(produtos);
+                if (produtos == null || !produtos.Any())
+                {
+                    return NotFound(new { error = "Nenhum produto encontrado." });
+                }
+
+                return Ok(produtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
+            }
         }
 
         [HttpPut]
         [Route("AlterarProduto")]
         public IActionResult AlterarProduto([FromBody] EstoqueViewModel produtoViewModel)
         {
-            if (produtoViewModel == null || produtoViewModel.Id <= 0)
+            try
             {
-                return BadRequest("Dados do produto inválidos");
-            }
+                if (produtoViewModel == null || produtoViewModel.Id <= 0)
+                {
+                    return BadRequest(new { error = "Dados do produto inválidos." });
+                }
 
-            if (_estoqueService.AlterarProduto(produtoViewModel))
+                if (_estoqueService.AlterarProduto(produtoViewModel))
+                {
+                    return Ok(new { success = "Produto alterado com sucesso." });
+                }
+
+                return NotFound(new { error = "Produto não encontrado." });
+            }
+            catch (Exception ex)
             {
-                return Ok("Produto alterado com sucesso");
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
             }
-
-            return NotFound("Produto não encontrado");
         }
 
         [HttpDelete]
         [Route("ExcluirProduto/{produtoId}")]
         public IActionResult ExcluirProduto(int produtoId)
         {
-            if (_estoqueService.ExcluirProduto(produtoId))
+            try
             {
-                return Ok(new { sucess = "Produto excluído com sucesso" });
+                var mensagem = _estoqueService.VerificarMovimentoRegistrado(produtoId);
+
+                if (mensagem != null)
+                {
+                    return BadRequest(new { error = mensagem });
+                }
+
+                if (_estoqueService.ExcluirProduto(produtoId))
+                {
+                    return Ok(new { success = "Produto excluído com sucesso." });
+                }
+
+                return NotFound(new { error = "Produto não encontrado." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
             }
 
-            return NotFound(new { error = "Produto não encontrado" });
         }
 
         [HttpGet]
         [Route("FiltrarProdutos")]
         public IActionResult FiltrarProdutos([FromQuery] FiltroProdutos filtro)
         {
-            var produtos = _estoqueService.FiltrarProdutos(filtro);
-            if (produtos == null || !produtos.Any())
+            try
             {
-                return NotFound();
-            }
+                var produtos = _estoqueService.FiltrarProdutos(filtro);
 
-            return Ok(produtos);    
+                if (produtos == null || !produtos.Any())
+                {
+                    return NotFound(new { error = "Nenhum produto encontrado com os filtros fornecidos." });
+                }
+
+                return Ok(produtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
+            }
         }
+
     }
 }

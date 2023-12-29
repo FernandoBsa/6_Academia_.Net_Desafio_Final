@@ -16,66 +16,89 @@ namespace Desafio_Final.Services
 
         public List<EstoqueViewModel> ConsultarTodosProdutos()
         {
-            var produtos = _contexto.Estoques.Select(e => new EstoqueViewModel
+            try
             {
-                Id = e.Id,
-                NomeProduto = e.NomeProduto,
-                Fabricante = e.Fabricante,
-                Quantidade = (int)e.Quantidade,
-                PrecoUnitario = (decimal)e.PrecoUnitario
-            }).ToList();
+                var produtos = _contexto.Estoques.Select(e => new EstoqueViewModel
+                {
+                    Id = e.Id,
+                    NomeProduto = e.NomeProduto,
+                    Fabricante = e.Fabricante,
+                    Quantidade = (int)e.Quantidade,
+                    PrecoUnitario = (decimal)e.PrecoUnitario
+                }).ToList();
 
-            return produtos;
+                return produtos;
+            }
+            catch (Exception ex)
+            {             
+                throw new Exception("Ocorreu um erro ao consultar os produtos.");
+            }
         }
 
         public List<EstoqueViewModel> FiltrarProdutos(FiltroProdutos filtro)
         {
-            var query = _contexto.Estoques.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(filtro.NomeProduto))
+            try
             {
-                query = query.Where(e => e.NomeProduto.Contains(filtro.NomeProduto));
+                var query = _contexto.Estoques.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(filtro.NomeProduto))
+                {
+                    query = query.Where(e => e.NomeProduto.Contains(filtro.NomeProduto));
+                }
+
+                if (!string.IsNullOrWhiteSpace(filtro.Fabricante))
+                {
+                    query = query.Where(e => e.Fabricante.Contains(filtro.Fabricante));
+                }
+
+                if (filtro.QuantidadeDe != null)
+                {
+                    query = query.Where(e => e.Quantidade >= filtro.QuantidadeDe);
+                }
+
+                if (filtro.QuantidadeAte != null)
+                {
+                    query = query.Where(e => e.Quantidade <= filtro.QuantidadeAte);
+                }
+
+                var result = query.ToList();
+
+                var produtos = result.Select(e => new EstoqueViewModel
+                {
+                    Id = e.Id,
+                    NomeProduto = e.NomeProduto,
+                    Fabricante = e.Fabricante,
+                    Quantidade = (int)e.Quantidade,
+                    PrecoUnitario = (decimal)e.PrecoUnitario
+                }).ToList();
+
+                return produtos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao filtrar os produtos.");
             }
 
-            if (!string.IsNullOrWhiteSpace(filtro.Fabricante))
-            {
-                query = query.Where(e => e.Fabricante.Contains(filtro.Fabricante));
-            }
-
-            if (filtro.QuantidadeDe != null)
-            {
-                query = query.Where(e => e.Quantidade >= filtro.QuantidadeDe);
-            }
-
-            if (filtro.QuantidadeAte != null)
-            {
-                query = query.Where(e => e.Quantidade <= filtro.QuantidadeAte);
-            }
-
-            var result = query.ToList();
-
-            var produtos = result.Select(e => new EstoqueViewModel
-            {
-                Id = e.Id,
-                NomeProduto = e.NomeProduto,
-                Fabricante = e.Fabricante,
-                Quantidade = (int)e.Quantidade,
-                PrecoUnitario = (decimal)e.PrecoUnitario
-            }).ToList();
-
-            return produtos;
         }
 
-        public bool CadastrarProduto(CadastroEstoqueViewModel produtoViewModel)
+        public (bool, string) CadastrarProduto(CadastroEstoqueViewModel produtoViewModel)
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(produtoViewModel.NomeProduto) ||
+                    string.IsNullOrWhiteSpace(produtoViewModel.Fabricante) ||
+                    produtoViewModel.Quantidade <= 0 ||
+                    produtoViewModel.PrecoUnitario <= 0)
+                {
+                    return (false, "Todos os campos são obrigatórios.");
+                }
+
                 var produtoExistente = _contexto.Estoques
                     .FirstOrDefault(p => p.NomeProduto == produtoViewModel.NomeProduto);
 
                 if (produtoExistente != null)
                 {
-                    return false;
+                    return (false, "Produto já cadastrado.");
                 }
 
                 var novoProduto = new Estoque
@@ -89,11 +112,11 @@ namespace Desafio_Final.Services
                 _contexto.Estoques.Add(novoProduto);
                 _contexto.SaveChanges();
 
-                return true;
+                return (true, "Produto cadastrado com sucesso.");
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return (false, "Ocorreu um erro ao cadastrar o produto.");
             }
         }
 
@@ -141,6 +164,27 @@ namespace Desafio_Final.Services
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public string VerificarMovimentoRegistrado(int produtoId)
+        {
+            try
+            {
+                bool movimentoRegistrado = _contexto.LogEntradaSaida.Any(log => log.ProdutoId == produtoId);
+
+                if (movimentoRegistrado)
+                {
+                    return "Não é possível excluir o produto, pois há movimentos registrados.";
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "Ocorreu um erro ao verificar os movimentos registrados.";
             }
         }
 

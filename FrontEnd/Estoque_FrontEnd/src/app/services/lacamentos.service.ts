@@ -15,4 +15,6 @@ export class LacamentosService {
   consultarTodosLancamentos(): Observable<LancamentosViewModel[]> {
     return this.http.get<LancamentosViewModel[]>(`${this.apiUrl}/Log/ConsultarLog`);
   }
+
+  
 }

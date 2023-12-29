@@ -22,15 +22,22 @@ namespace Desafio_Final.Controllers
         [Route("EntradaProduto")]
         public IActionResult EntradaProduto([FromBody] LogEntradaSaidaViewModel logViewModel)
         {
-            var result = _logService.EntradaProduto(logViewModel);
+            try
+            {
+                var result = _logService.EntradaProduto(logViewModel);
 
-            if (result)
-            {
-                return Ok("Entrada de produto registrada com sucesso");
+                if (result)
+                {
+                    return Ok(new { success = "Entrada de produto registrada com sucesso" });
+                }
+                else
+                {
+                    return BadRequest(new { error = "Falha ao registrar a entrada do produto" });
+                }
             }
-            else
-            {
-                return BadRequest("Falha ao registrar a entrada do produto");
+            catch (Exception ex)
+            {              
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
             }
         }
 
@@ -38,15 +45,22 @@ namespace Desafio_Final.Controllers
         [Route("SaidaProduto")]
         public IActionResult SaidaProduto([FromBody] LogEntradaSaidaViewModel logViewModel)
         {
-            var result = _logService.SaidaProduto(logViewModel);
+            try
+            {
+                var result = _logService.SaidaProduto(logViewModel);
 
-            if (result)
-            {
-                return Ok("Saída de produto registrada com sucesso");
+                if (result)
+                {
+                    return Ok(new { success = "Saída de produto registrada com sucesso" });
+                }
+                else
+                {
+                    return BadRequest(new { error = "Falha ao registrar a saída do produto" });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Falha ao registrar a saída do produto");
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
             }
         }
 
@@ -57,7 +71,7 @@ namespace Desafio_Final.Controllers
             var log = _logService.ConsultarTodosOsLogs();
             if (log == null || !log.Any())
             {
-                return NotFound();
+                return NotFound(new { error = "Nenhum log encontrado." });
             }
             return Ok(log);
         }
@@ -68,14 +82,14 @@ namespace Desafio_Final.Controllers
         {
             if (filtro == null)
             {
-                return BadRequest("Filtro inválido");
+                return BadRequest(new { error = "Filtro inválido." });
             }
 
             var logsFiltrados = _logService.FiltrarLogs(filtro);
 
             if (logsFiltrados == null || logsFiltrados.Count == 0)
             {
-                return NotFound("Nenhum log encontrado com os filtros fornecidos");
+                return NotFound(new { error = "Nenhum log encontrado com os filtros fornecidos." });
             }
 
             return Ok(logsFiltrados);

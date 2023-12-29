@@ -7,6 +7,8 @@ import { EstoqueService } from '../services/estoque.service';
 import { EstoqueViewModel } from '../model/estoqueviewmodel';
 import { EditarProdutoModalComponent } from './editar-produto-modal/editar-produto-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { response } from 'express';
 
 
 @Component({
@@ -19,7 +21,12 @@ export class TabelaEstoqueComponent {
   produtos: EstoqueViewModel[] = [];
   idProduto: number = 0
 
-  constructor(private modalService: BsModalService, private estoqueService: EstoqueService, private modalServiceConfirmacao: NgbModal) { }
+  constructor(
+    private modalService: BsModalService, 
+    private estoqueService: EstoqueService, 
+    private modalServiceConfirmacao: NgbModal, 
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -35,23 +42,16 @@ export class TabelaEstoqueComponent {
     );
   }
 
-  // confirmarExclusao(produtoId: number): void {
-  //   const confirmacao = window.confirm('Deseja realmente excluir este produto?');
-  //   if (confirmacao) {
-  //     this.excluirProduto(produtoId);
-  //   }
-  // }
-
   excluirProduto(produtoId: number): void {
     this.estoqueService.excluirProduto(produtoId).subscribe({
       next: (response) => {
-        console.log('Produto excluído com sucesso');
+        this.toastr.success(response.success);
         this.modalServiceConfirmacao.dismissAll();
       },
-      error: (error) => {
-        console.error('Erro ao excluir produto', error);
-        this.modalServiceConfirmacao.dismissAll();
-      }
+        error: (error) => {
+        this.toastr.error(error.error.error)
+        this.modalServiceConfirmacao.dismissAll();     
+    }
     });
   }
 
