@@ -10,5 +10,6 @@ namespace Desafio_Final.Interfaces
         bool SaidaProduto(LogEntradaSaidaViewModel logViewModel);
         List<LogConsultaViewModel> ConsultarTodosOsLogs();
         List<LogConsultaViewModel> FiltrarLogs(FiltroLog filtro);
+        bool ExcluirLog(int logId);
     }
 }

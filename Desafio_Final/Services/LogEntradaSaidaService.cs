@@ -133,6 +133,28 @@ namespace Desafio_Final.Services
 
             return logs;
         }
+
+        public bool ExcluirLog(int logId)
+        {
+            try
+            {
+                var log = _contexto.LogEntradaSaida.Find(logId);
+
+                if (log == null)
+                {
+                    return false;
+                }
+
+                _contexto.LogEntradaSaida.Remove(log);
+                _contexto.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
 

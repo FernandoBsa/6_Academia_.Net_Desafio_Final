@@ -94,5 +94,28 @@ namespace Desafio_Final.Controllers
 
             return Ok(logsFiltrados);
         }
+
+        [HttpDelete]
+        [Route("ExcluirLog/{logId}")]
+        public IActionResult ExcluirLog(int logId)
+        {
+            try
+            {
+                var result = _logService.ExcluirLog(logId);
+
+                if (result)
+                {
+                    return Ok(new { success = "Log excluído com sucesso." });
+                }
+                else
+                {
+                    return NotFound(new { error = "Log não encontrado ou falha ao excluir." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Ocorreu um erro ao processar a solicitação." });
+            }
+        }
     }
 }

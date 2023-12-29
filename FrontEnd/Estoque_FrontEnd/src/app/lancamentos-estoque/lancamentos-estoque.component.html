@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row d-flex align-items-center">
         <div class="col">
-            <h2 class="text-center">Tabela de Lancamentos</h2>
+            <h2 class="text-center">Tabela de Lançamentos</h2>
             <div class="table-container" style="max-height: 600px; overflow-y: auto;">
                 <table class="table mx-auto table-bordered table-hover">
                     <thead>
@@ -21,7 +21,7 @@
                             <td>{{ lancamento.tipoMovimento }}</td>
                             <td>{{ lancamento.quantidade }}</td>
                             <td>{{ lancamento.dataMovimento | date: 'dd/MM/yyyy' }}</td>
-                            <td><button type="button" class="btn btn-danger btn-sm">
+                            <td><button type="button" class="btn btn-danger btn-sm" (click)="openConfirmacao(confirma, lancamento.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                   class="bi bi-file-earmark-x-fill" viewBox="0 0 16 16">
                                   <path
@@ -36,3 +36,18 @@
         </div>
     </div>
   </div>
+  <ng-template #confirma let-modal>
+    <div class="modal-confirma">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalExcluirLabel">Confirmar exclusão</h5>
+            <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+            <p>Tem certeza que deseja excluir o lançamentos de ID: {{idLog}}</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Cancelar</button>
+            <button type="button" class="btn btn-danger" (click)="excluir()">Excluir</button>
+        </div>
+    </div>
+  </ng-template>

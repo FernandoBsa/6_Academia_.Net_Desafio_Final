@@ -16,5 +16,7 @@ export class LacamentosService {
     return this.http.get<LancamentosViewModel[]>(`${this.apiUrl}/Log/ConsultarLog`);
   }
 
-  
+  excluirLog(logId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/Log/ExcluirLog/${logId}`);
+  }
 }

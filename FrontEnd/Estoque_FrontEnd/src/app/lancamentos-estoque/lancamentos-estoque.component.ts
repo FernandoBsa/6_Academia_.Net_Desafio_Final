@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { LancamentosViewModel } from '../model/lancamentosviewmodel';
 import { LacamentosService } from '../services/lacamentos.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { log } from 'console';
 
 @Component({
   selector: 'app-lancamentos-estoque',
@@ -8,23 +11,59 @@ import { LacamentosService } from '../services/lacamentos.service';
   styleUrl: './lancamentos-estoque.component.scss'
 })
 export class LancamentosEstoqueComponent {
-lancamentos: LancamentosViewModel[] = []
+  lancamentos: LancamentosViewModel[] = []
+  idLog: number = 0;
 
-constructor(private lacamentosService : LacamentosService) {}
 
-ngOnInit(): void {
-  this.carregarLancamentos(); 
-}
+  constructor(
+    private lacamentosService: LacamentosService,
+    private modalServiceConfirmacao: NgbModal,
+    private toastr: ToastrService
+  ) { }
 
-carregarLancamentos(): void {
+  ngOnInit(): void {
+    this.carregarLancamentos();
+  }
+
+  carregarLancamentos(): void {
     this.lacamentosService.consultarTodosLancamentos().subscribe({
-      next: (response) => {       
+      next: (response) => {
         this.lancamentos = response;
       },
-      error: (error) => {console.log('Erro ao obeter produtos', error)}
+      error: (error) => { console.log('Erro ao obeter produtos', error) }
     }
     );
   }
 
-  
+  excluirLog(logId: number): void {
+    this.lacamentosService.excluirLog(logId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.toastr.success(response.success)
+        this.modalServiceConfirmacao.dismissAll();
+      },
+      error: (error) => {
+        this.toastr.error(error.error.error)
+        this.modalServiceConfirmacao.dismissAll();
+      }
+    });
+  }
+
+  excluir() {
+    this.excluirLog(this.idLog);
+  }
+
+  openConfirmacao(content: any, logId: number) {
+    this.idLog = logId;
+    this.modalServiceConfirmacao.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then(
+      (result: any) => {
+        this.idLog = 0;
+        this.carregarLancamentos();
+      }).catch(
+        (reason: any) => {
+          this.idLog = 0;
+          this.carregarLancamentos();
+        });
+  }
+
 }
