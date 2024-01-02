@@ -1,32 +1,36 @@
 <div class="modal-header">
-    <h1 class="modal-title fs-5">Novo Produto</h1>
-    <button type="button" class="btn-close" (click)="bsModalRef.hide()" aria-label="Close"></button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="mb-3">
-        <label for="id" class="col-form-label">ID do Produto</label>
-        <input type="text" class="form-control" id="id" [(ngModel)]="produto.id" [ngModelOptions]="{standalone: true}">
-      </div>
-        <div class="mb-3">
-          <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
-          <input type="text" class="form-control" id="nomeProduto" [(ngModel)]="produto.nomeProduto" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="mb-3">
-          <label for="fabricante" class="col-form-label">Fabricante:</label>
-          <input type="text" class="form-control" id="fabricante" [(ngModel)]="produto.fabricante" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="mb-3">
-          <label for="quantidade" class="col-form-label">Quantidade:</label>
-          <input type="number" class="form-control" id="quantidade" [(ngModel)]="produto.quantidade" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="mb-3">
-          <label for="precoUnitario" class="col-form-label">Preço Unitário:</label>
-          <input type="text" class="form-control" id="precoUnitario" [(ngModel)]="produto.precoUnitario" [ngModelOptions]="{standalone: true}">
-        </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Fechar</button>
-    <button type="button" class="btn btn-primary" (click)="salvarAlteracoes()">Salvar</button>
-  </div>
+  <h1 class="modal-title fs-5">Novo Produto</h1>
+  <button type="button" class="btn-close" (click)="bsModalRef.hide()" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="mb-3">
+      <label for="id" class="col-form-label">ID do Produto</label>
+      <input type="text" class="form-control" id="id" readonly [(ngModel)]="produto.id" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="mb-3">
+      <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
+      <input type="text" class="form-control" id="nomeProduto" [(ngModel)]="produto.nomeProduto"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="mb-3">
+      <label for="fabricante" class="col-form-label">Fabricante:</label>
+      <input type="text" class="form-control" id="fabricante" [(ngModel)]="produto.fabricante"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="mb-3">
+      <label for="quantidade" class="col-form-label">Quantidade:</label>
+      <input type="number" class="form-control" id="quantidade" [(ngModel)]="produto.quantidade"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="mb-3">
+      <label for="precoUnitario" class="col-form-label">Preço Unitário:</label>
+      <input type="text" class="form-control" id="precoUnitario" [(ngModel)]="produto.precoUnitario"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Fechar</button>
+  <button type="button" class="btn btn-primary" (click)="salvarAlteracoes()">Salvar</button>
+</div>

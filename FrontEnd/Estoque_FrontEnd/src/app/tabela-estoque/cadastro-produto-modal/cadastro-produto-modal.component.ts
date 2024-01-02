@@ -12,7 +12,6 @@ import { EstoqueViewModel } from '../../model/estoqueviewmodel';
   styleUrl: './cadastro-produto-modal.component.scss'
 })
 export class CadastroProdutoModalComponent {
-  produtos: EstoqueViewModel[] = [];
   produto: CadastroViewModel = new CadastroViewModel();
 
   constructor(
@@ -21,32 +20,22 @@ export class CadastroProdutoModalComponent {
     private toastr: ToastrService
   ) { }
 
-  carregarProdutos(): void {
-    this.estoqueService.consultarTodosProdutos().subscribe({
-      next: (response) => {
-        this.produtos = response;
-      },
-      error: (error) => { console.log('Erro ao obeter produtos', error) }
-    }
-    );
-  }
 
   cadastrarProduto(): void {
+    debugger;
     this.estoqueService.cadastrarProduto(this.produto).subscribe({
       next: (response) => {
         this.toastr.success(response.success);
         this.bsModalRef.hide();
-        this.carregarProdutos();
       },
       error: (error) => {
-      this.toastr.error(error.error.error)
-
+        this.toastr.error(error.error.error)
       }
     });
   }
 
   cadastrar() {
-    this.cadastrarProduto();  
+    this.cadastrarProduto();
   }
 
 }

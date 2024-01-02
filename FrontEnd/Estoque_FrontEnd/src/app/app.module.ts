@@ -18,6 +18,7 @@ import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.compo
 import { EditarProdutoModalComponent } from './tabela-estoque/editar-produto-modal/editar-produto-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { Router } from 'express';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
     ModalModule.forRoot(),
     RouterModule,
     FormsModule,
+    RouterModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,

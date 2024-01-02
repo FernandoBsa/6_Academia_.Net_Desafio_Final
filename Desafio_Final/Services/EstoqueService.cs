@@ -87,8 +87,6 @@ namespace Desafio_Final.Services
             {
                 if (string.IsNullOrWhiteSpace(produtoViewModel.NomeProduto) ||
                     string.IsNullOrWhiteSpace(produtoViewModel.Fabricante) ||
-                    string.IsNullOrWhiteSpace(produtoViewModel.Quantidade.ToString()) ||
-                    string.IsNullOrWhiteSpace(produtoViewModel.PrecoUnitario.ToString()) ||
                     produtoViewModel.Quantidade <= 0 ||
                     produtoViewModel.PrecoUnitario <= 0)
                 {

@@ -20,13 +20,15 @@ export class TabelaEstoqueComponent {
   modalRef: BsModalRef | undefined;
   produtos: EstoqueViewModel[] = [];
   idProduto: number = 0
+  produtoselecionado: number | null = null;
+
 
   constructor(
-    private modalService: BsModalService, 
-    private estoqueService: EstoqueService, 
-    private modalServiceConfirmacao: NgbModal, 
+    private modalService: BsModalService,
+    private estoqueService: EstoqueService,
+    private modalServiceConfirmacao: NgbModal,
     private toastr: ToastrService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -48,10 +50,10 @@ export class TabelaEstoqueComponent {
         this.toastr.success(response.success);
         this.modalServiceConfirmacao.dismissAll();
       },
-        error: (error) => {
+      error: (error) => {
         this.toastr.error(error.error.error)
-        this.modalServiceConfirmacao.dismissAll();     
-    }
+        this.modalServiceConfirmacao.dismissAll();
+      }
     });
   }
 
@@ -83,8 +85,20 @@ export class TabelaEstoqueComponent {
     this.modalRef = this.modalService.show(SaidaProdutoModalComponent);
   }
 
-  abrirModalEditarProduto() {
-    this.modalRef = this.modalService.show(EditarProdutoModalComponent);
+  abrirModalEditarProduto(produtoId: number) {
+    this.produtoselecionado = produtoId;
+    this.estoqueService.obterProduto(produtoId).subscribe(
+      (produto: EstoqueViewModel) => {
+        this.modalRef = this.modalService.show(EditarProdutoModalComponent, {
+          initialState: {
+            produto: produto
+          }
+        });
+      },
+      (error) => {
+        console.error('Erro ao obter detalhes do produto', error);
+      }
+    );
   }
 
 }
