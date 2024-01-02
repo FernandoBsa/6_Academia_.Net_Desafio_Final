@@ -11,9 +11,7 @@ namespace Desafio_Final.Interfaces
         bool ExcluirProduto(int produtoId);
         bool AlterarProduto(EstoqueViewModel produtoViewModel);
         List<EstoqueViewModel> FiltrarProdutos(FiltroProdutos filtro);
-
         string VerificarMovimentoRegistrado(int produtoId);
-
-
+        EstoqueViewModel ObterDetalhesProduto(int produtoId);
     }
 }

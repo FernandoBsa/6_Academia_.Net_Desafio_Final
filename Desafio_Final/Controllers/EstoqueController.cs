@@ -139,5 +139,28 @@ namespace Desafio_Final.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("ObterDetalhesProduto/{produtoId}")]
+        public IActionResult ObterDetalhesProduto(int produtoId)
+        {
+            try
+            {
+                var produto = _estoqueService.ObterDetalhesProduto(produtoId);
+
+                if (produto != null)
+                {
+                    return Ok(produto);
+                }
+                else
+                {
+                    return NotFound(new { error = "Produto não encontrado." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Ocorreu um erro ao obter os detalhes do produto." });
+            }
+        }
+
     }
 }

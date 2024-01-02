@@ -87,6 +87,8 @@ namespace Desafio_Final.Services
             {
                 if (string.IsNullOrWhiteSpace(produtoViewModel.NomeProduto) ||
                     string.IsNullOrWhiteSpace(produtoViewModel.Fabricante) ||
+                    string.IsNullOrWhiteSpace(produtoViewModel.Quantidade.ToString()) ||
+                    string.IsNullOrWhiteSpace(produtoViewModel.PrecoUnitario.ToString()) ||
                     produtoViewModel.Quantidade <= 0 ||
                     produtoViewModel.PrecoUnitario <= 0)
                 {
@@ -185,6 +187,30 @@ namespace Desafio_Final.Services
             catch (Exception ex)
             {
                 return "Ocorreu um erro ao verificar os movimentos registrados.";
+            }
+        }
+
+        public EstoqueViewModel ObterDetalhesProduto(int produtoId)
+        {
+            try
+            {
+                var produto = _contexto.Estoques
+                    .Where(e => e.Id == produtoId)
+                    .Select(e => new EstoqueViewModel
+                    {
+                        Id = e.Id,
+                        NomeProduto = e.NomeProduto,
+                        Fabricante = e.Fabricante,
+                        Quantidade = (int)e.Quantidade,
+                        PrecoUnitario = (decimal)e.PrecoUnitario
+                    })
+                    .FirstOrDefault();
+
+                return produto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao obter os detalhes do produto.");
             }
         }
 

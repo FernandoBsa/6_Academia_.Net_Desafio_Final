@@ -6,23 +6,23 @@
     <form>
         <div class="mb-3">
           <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
-          <input type="text" class="form-control" id="nomeProduto">
+          <input [(ngModel)]="produto.nomeProduto" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="nomeProduto">
         </div>
         <div class="mb-3">
-          <label for="fabricanteProduto" class="col-form-label">Fabricante:</label>
-          <input type="text" class="form-control" id="fabricanteProduto">
+          <label for="fabricante" class="col-form-label">Fabricante:</label>
+          <input [(ngModel)]="produto.fabricante" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="fabricante">
         </div>
         <div class="mb-3">
-          <label for="quantidadeProduto" class="col-form-label">Quantidade:</label>
-          <input type="number" class="form-control" id="quantidadeProduto">
+          <label for="quantidade" class="col-form-label">Quantidade:</label>
+          <input [(ngModel)]="produto.quantidade" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="quantidade">
         </div>
         <div class="mb-3">
-          <label for="precoProduto" class="col-form-label">Preço Unitário:</label>
-          <input type="text" class="form-control" id="precoProduto">
+          <label for="precoUnitario" class="col-form-label">Preço Unitário:</label>
+          <input [(ngModel)]="produto.precoUnitario" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="precoUnitario">
         </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Fechar</button>
-    <button type="button" class="btn btn-primary">Salvar</button>
+    <button type="button" class="btn btn-primary" (click)="cadastrar()">Salvar</button>
   </div>
