@@ -140,12 +140,12 @@ namespace Desafio_Final.Controllers
         }
 
         [HttpGet]
-        [Route("ObterDetalhesProduto/{produtoId}")]
-        public IActionResult ObterDetalhesProduto(int produtoId)
+        [Route("ObterProduto/{produtoId}")]
+        public IActionResult ObterProduto(int produtoId)
         {
             try
             {
-                var produto = _estoqueService.ObterDetalhesProduto(produtoId);
+                var produto = _estoqueService.ObterProduto(produtoId);
 
                 if (produto != null)
                 {

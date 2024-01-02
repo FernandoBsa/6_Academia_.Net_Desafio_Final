@@ -190,7 +190,7 @@ namespace Desafio_Final.Services
             }
         }
 
-        public EstoqueViewModel ObterDetalhesProduto(int produtoId)
+        public EstoqueViewModel ObterProduto(int produtoId)
         {
             try
             {

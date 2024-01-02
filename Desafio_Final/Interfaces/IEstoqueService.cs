@@ -12,6 +12,6 @@ namespace Desafio_Final.Interfaces
         bool AlterarProduto(EstoqueViewModel produtoViewModel);
         List<EstoqueViewModel> FiltrarProdutos(FiltroProdutos filtro);
         string VerificarMovimentoRegistrado(int produtoId);
-        EstoqueViewModel ObterDetalhesProduto(int produtoId);
+        EstoqueViewModel ObterProduto(int produtoId);
     }
 }

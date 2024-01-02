@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { EstoqueService } from '../../services/estoque.service';
+import { ToastrService } from 'ngx-toastr';
+import { EstoqueViewModel } from '../../model/estoqueviewmodel';
 
 @Component({
   selector: 'app-editar-produto-modal',
@@ -7,5 +10,24 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrl: './editar-produto-modal.component.scss'
 })
 export class EditarProdutoModalComponent {
-  constructor(public bsModalRef: BsModalRef) {}
+
+  produto: EstoqueViewModel = new EstoqueViewModel();
+
+  constructor(
+    public bsModalRef: BsModalRef,
+    private estoqueService: EstoqueService,
+    private toastr: ToastrService) { }
+
+  salvarAlteracoes(): void {
+    this.estoqueService.alterarProduto(this.produto).subscribe({
+      next: (response) => {
+        this.toastr.success(response.success);
+        this.bsModalRef.hide();
+      },
+      error: (error) => {
+        this.toastr.error(error.error.error)
+      }
+    });
+  }
+
 }

@@ -24,4 +24,13 @@ export class EstoqueService {
   cadastrarProduto(produto: CadastroViewModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/Estoque/CadastroProduto`, produto);
   }
+
+  alterarProduto(produto: EstoqueViewModel): Observable<any> {
+    return this.http.put(`${this.apiUrl}/Estoque/AlterarProduto`, produto);
+  }
+
+  obterProduto(produtoId: number): Observable<EstoqueViewModel> {
+    return this.http.get<EstoqueViewModel>(`${this.apiUrl}/Estoque/ObterProduto/${produtoId}`);
+  }
+
 }
