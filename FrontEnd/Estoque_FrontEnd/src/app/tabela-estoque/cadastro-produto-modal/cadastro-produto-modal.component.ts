@@ -22,7 +22,12 @@ export class CadastroProdutoModalComponent {
 
 
   cadastrarProduto(): void {
-    debugger;
+    if(this.produto.Quantidade == null){
+      this.produto.Quantidade = 0;
+    }
+    if(this.produto.PrecoUnitario == null){
+      this.produto.PrecoUnitario = 0;
+    }
     this.estoqueService.cadastrarProduto(this.produto).subscribe({
       next: (response) => {
         this.toastr.success(response.success);
