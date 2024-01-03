@@ -4,7 +4,7 @@ using Desafio_Final.ViewModel;
 
 namespace Desafio_Final.Interfaces
 {
-    public interface ILogEntradaSaida
+    public interface ILogEntradaSaidaService
     {
         bool EntradaProduto(LogEntradaSaidaViewModel logViewModel);
         bool SaidaProduto(LogEntradaSaidaViewModel logViewModel);

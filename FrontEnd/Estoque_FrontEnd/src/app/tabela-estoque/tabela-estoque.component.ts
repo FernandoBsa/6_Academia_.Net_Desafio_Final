@@ -9,6 +9,8 @@ import { EditarProdutoModalComponent } from './editar-produto-modal/editar-produ
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { response } from 'express';
+import { LacamentosService } from '../services/lacamentos.service';
+import { FiltroModalComponent } from './filtro-modal/filtro-modal.component';
 
 
 @Component({
@@ -27,7 +29,7 @@ export class TabelaEstoqueComponent {
     private modalService: BsModalService,
     private estoqueService: EstoqueService,
     private modalServiceConfirmacao: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -83,6 +85,10 @@ export class TabelaEstoqueComponent {
 
   abrirModalSaidaProduto() {
     this.modalRef = this.modalService.show(SaidaProdutoModalComponent);
+  }
+
+  abrirModalFiltrarProduto() {
+    this.modalRef = this.modalService.show(FiltroModalComponent);
   }
 
   abrirModalEditarProduto(produtoId: number) {

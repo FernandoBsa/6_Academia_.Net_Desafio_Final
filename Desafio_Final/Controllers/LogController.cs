@@ -11,9 +11,9 @@ namespace Desafio_Final.Controllers
     [ApiController]
     public class LogController : ControllerBase
     {
-        private readonly ILogEntradaSaida _logService;
+        private readonly ILogEntradaSaidaService _logService;
 
-        public LogController(ILogEntradaSaida logService)
+        public LogController(ILogEntradaSaidaService logService)
         {
             _logService = logService;
         }
@@ -24,6 +24,12 @@ namespace Desafio_Final.Controllers
         {
             try
             {
+
+                if (logViewModel == null)
+                {
+                    return BadRequest(new { error = "Os parâmetros da entrada de produto são inválidos." });
+                }
+
                 var result = _logService.EntradaProduto(logViewModel);
 
                 if (result)

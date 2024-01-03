@@ -19,6 +19,7 @@ import { EditarProdutoModalComponent } from './tabela-estoque/editar-produto-mod
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { Router } from 'express';
+import { FiltroModalComponent } from './tabela-estoque/filtro-modal/filtro-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { Router } from 'express';
     LoginEstoqueComponent,
     ContatoEstoqueComponent,
     EditarProdutoModalComponent,
+    FiltroModalComponent,
   ],
   imports: [
     BrowserModule,

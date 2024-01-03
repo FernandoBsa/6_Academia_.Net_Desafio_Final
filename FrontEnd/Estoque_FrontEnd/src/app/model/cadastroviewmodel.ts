@@ -1,6 +1,6 @@
 export class CadastroViewModel {
-    NomeProduto: string = '';
-    Fabricante: string = '';
-    Quantidade: number = 0;
-    PrecoUnitario: number = 0;
+    public NomeProduto: string = '';
+    public Fabricante: string = '';
+    public Quantidade: number = 0;
+    public PrecoUnitario: number = 0;
   }

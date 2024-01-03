@@ -32,6 +32,7 @@ export class CadastroProdutoModalComponent {
       next: (response) => {
         this.toastr.success(response.success);
         this.bsModalRef.hide();
+        window.location.reload();
       },
       error: (error) => {
         this.toastr.error(error.error.error)

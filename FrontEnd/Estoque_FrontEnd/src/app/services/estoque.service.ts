@@ -33,4 +33,6 @@ export class EstoqueService {
     return this.http.get<EstoqueViewModel>(`${this.apiUrl}/Estoque/ObterProduto/${produtoId}`);
   }
 
+  
+
 }

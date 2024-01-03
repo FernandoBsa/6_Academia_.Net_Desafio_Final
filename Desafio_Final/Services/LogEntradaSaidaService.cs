@@ -6,7 +6,7 @@ using Desafio_Final.ViewModel;
 
 namespace Desafio_Final.Services
 {
-    public class LogEntradaSaidaService : ILogEntradaSaida
+    public class LogEntradaSaidaService : ILogEntradaSaidaService
     {
         private readonly EstoqueContext _contexto;
 
@@ -22,6 +22,16 @@ namespace Desafio_Final.Services
                 var produto = _contexto.Estoques.Find(logViewModel.ProdutoId);
 
                 if (produto == null)
+                {
+                    return false;
+                }
+
+                if (logViewModel.ProdutoId <= 0)
+                {
+                    return false;
+                }
+
+                if (logViewModel.Quantidade <= 0)
                 {
                     return false;
                 }

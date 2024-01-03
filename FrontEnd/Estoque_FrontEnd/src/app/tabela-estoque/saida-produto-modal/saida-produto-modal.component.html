@@ -5,20 +5,16 @@
   <div class="modal-body">
     <form>
         <div class="mb-3">
-            <label for="nomeProduto" class="col-form-label">Id do Produto:</label>
-            <input type="text" class="form-control" id="nomeProduto">
+            <label for="produtoId" class="col-form-label">Id do Produto:</label>
+            <input type="text" class="form-control" id="produtoId" [(ngModel)]="entrada.produtoId" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="mb-3">
-            <label for="quantidadeProduto" class="col-form-label">Quantidade:</label>
-            <input type="number" class="form-control" id="quantidadeProduto">
+            <label for="quantidade" class="col-form-label">Quantidade:</label>
+            <input type="number" class="form-control" id="quantidade" [(ngModel)]="entrada.quantidade" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="mb-3">
-              <label for="dataProduto" class="col-form-label">Data:</label>
-              <input type="date" class="form-control" id="dataProduto">
-            </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Fechar</button>
-    <button type="button" class="btn btn-danger">Registrar Saída</button>
+    <button type="button" class="btn btn-danger"(click)="registrarSaida()">Registrar Saída</button>
   </div>

@@ -8,9 +8,9 @@ namespace Desafio_Final.Config
     {
         public static IServiceCollection AddDIConfiguration(this IServiceCollection services)
         {            
-            services.AddScoped<IUsuarioServices ,UsuarioServices>();
+            services.AddScoped<IUsuarioServices, UsuarioServices>();
             services.AddScoped<IEstoqueService, EstoqueService>();
-            services.AddScoped<ILogEntradaSaida, LogEntradaSaidaService>();
+            services.AddScoped<ILogEntradaSaidaService, LogEntradaSaidaService>();
             return services;
         }
     }
