@@ -2,14 +2,20 @@
     <div class="row d-flex align-items-center">
         <div class="col">
             <h2 class="text-center">Tabela de Lançamentos</h2>
+            <div class="btnFiltro">
+                <button type="button" class="btn btn-primary btn-sm" (click)="openFiltro(modalFiltroLog)">
+                  Filtro
+                </button>
+              </div>
             <div class="table-container" style="max-height: 600px; overflow-y: auto;">
                 <table class="table mx-auto table-bordered table-hover">
                     <thead>
                         <tr>
                             <th scope="col" style="width: 5%;">ID</th>
-                            <th scope="col" style="width: 20%;">Nome do Produto</th>
+                            <th scope="col" style="width: 5%;">ID do Produto</th>
+                            <th scope="col" style="width: 15%;">Nome do Produto</th>
                             <th scope="col" style="width: 10%;">Tipo de Movimento</th>
-                            <th scope="col" style="width: 10%;">Quantidade</th>
+                            <th scope="col" style="width: 5%;">Quantidade</th>
                             <th scope="col" style="width: 10%;">Data do Movimento</th>
                             <th scope="col" style="width: 5%;">Ações</th>
                         </tr>
@@ -18,6 +24,7 @@
                         <tr *ngFor="let lancamento of lancamentos">
                             <th scope="row">{{ lancamento.id }}</th>
                             <td>{{ lancamento.produtoId }}</td>
+                            <td>{{ lancamento.nomeProduto }}</td>
                             <td>{{ lancamento.tipoMovimento }}</td>
                             <td>{{ lancamento.quantidade }}</td>
                             <td>{{ lancamento.dataMovimento | date: 'dd/MM/yyyy' }}</td>
@@ -49,5 +56,41 @@
             <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Cancelar</button>
             <button type="button" class="btn btn-danger" (click)="excluir()">Excluir</button>
         </div>
+    </div>
+  </ng-template>
+
+  <ng-template #modalFiltroLog let-modal>
+    <div class="modal-header">
+      <h1 class="modal-title fs-5">Filtro</h1>
+      <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <label for="produtoId" class="col-form-label">ID do Produto:</label>
+          <input type="number" class="form-control" id="nomeProduto" [(ngModel)]="filtroLog.ProdutoId" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="tipomovimento" class="col-form-label">Nome do Produto:</label>
+          <input type="text" class="form-control" id="tipomovimento" [(ngModel)]="filtroLog.NomeProduto" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="quantidade" class="col-form-label">Quantidade:</label>
+          <input type="number" class="form-control" id="quantidade" [(ngModel)]="filtroLog.Quantidade" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="tipomovimento" class="col-form-label">Tipo de Movimento:</label>
+          <input type="text" class="form-control" id="tipomovimento" [(ngModel)]="filtroLog.TipoMovimento" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="datamovimento" class="col-form-label">Data de Movimento:</label>
+          <input type="date" class="form-control" id="datamovimento" [(ngModel)]="filtroLog.DataMovimento" [ngModelOptions]="{standalone: true}">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" style="margin-right: 236px;" (click)="limparFiltro()">Limpar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
+      <button type="button" class="btn btn-primary" (click)="filtrarLancamentos()">Filtrar</button>
     </div>
   </ng-template>

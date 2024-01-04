@@ -3,6 +3,7 @@ using Desafio_Final.Filter;
 using Desafio_Final.Interfaces;
 using Desafio_Final.Models;
 using Desafio_Final.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Desafio_Final.Services
 {
@@ -94,26 +95,37 @@ namespace Desafio_Final.Services
         public List<LogConsultaViewModel> ConsultarTodosOsLogs()
         {
             var logs = _contexto.LogEntradaSaida
-                .Select(e => new LogConsultaViewModel
-                {
-                    Id = e.Id,
-                    ProdutoId = (int)e.ProdutoId,
-                    Quantidade = (int)e.Quantidade,
-                    TipoMovimento = e.TipoMovimento,
-                    DataMovimento = e.DataMovimento
-                })
+                .Join(_contexto.Estoques,
+                    log => log.ProdutoId,
+                    estoque => estoque.Id,
+                    (log, estoque) => new LogConsultaViewModel
+                    {
+                        Id = log.Id,
+                        ProdutoId = (int)log.ProdutoId,
+                        NomeProduto = estoque.NomeProduto,
+                        Quantidade = (int)log.Quantidade,
+                        TipoMovimento = log.TipoMovimento,
+                        DataMovimento = log.DataMovimento                       
+                    })
                 .ToList();
 
-            return logs;
+                    return logs;
         }
 
         public List<LogConsultaViewModel> FiltrarLogs(FiltroLog filtro)
         {
-            var query = _contexto.LogEntradaSaida.AsQueryable();
+            var query = _contexto.LogEntradaSaida
+                .Include(e => e.Produto)
+                .AsQueryable();
 
             if (filtro.ProdutoId != null)
             {
                 query = query.Where(e => e.ProdutoId == filtro.ProdutoId);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filtro.NomeProduto))
+            {
+                query = query.Where(e => e.Produto.NomeProduto.Contains(filtro.NomeProduto));
             }
 
             if (filtro.Quantidade != null)
@@ -135,7 +147,9 @@ namespace Desafio_Final.Services
 
             var logs = result.Select(e => new LogConsultaViewModel
             {
+                Id = e.Id,
                 ProdutoId = e.ProdutoId ?? 0,
+                NomeProduto = e.Produto.NomeProduto,
                 Quantidade = e.Quantidade ?? 0,
                 TipoMovimento = e.TipoMovimento,
                 DataMovimento = e.DataMovimento

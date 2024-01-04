@@ -30,7 +30,7 @@ public partial class EstoqueContext : DbContext
     {
         modelBuilder.Entity<Estoque>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Estoque__3214EC2735EEED1D");
+            entity.HasKey(e => e.Id).HasName("PK__Estoque__3214EC2768ED590D");
 
             entity.ToTable("Estoque");
 
@@ -46,10 +46,10 @@ public partial class EstoqueContext : DbContext
 
         modelBuilder.Entity<LogEntradaSaida>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LogEntra__3214EC2701762DFB");
+            entity.HasKey(e => e.Id).HasName("PK__LogEntra__3214EC27FADBE7FB");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.DataMovimento).HasColumnType("datetime");
+            entity.Property(e => e.DataMovimento).HasColumnType("date");
             entity.Property(e => e.ProdutoId).HasColumnName("ProdutoID");
             entity.Property(e => e.TipoMovimento)
                 .HasMaxLength(10)
@@ -57,16 +57,16 @@ public partial class EstoqueContext : DbContext
 
             entity.HasOne(d => d.Produto).WithMany(p => p.LogEntradaSaida)
                 .HasForeignKey(d => d.ProdutoId)
-                .HasConstraintName("FK__LogEntrad__Produ__534D60F1");
+                .HasConstraintName("FK__LogEntrad__Produ__5AEE82B9");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC271DD178ED");
+            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC277DAB2B4F");
 
             entity.ToTable("Usuario");
 
-            entity.HasIndex(e => e.NomeUsuario, "UQ__Usuario__06940B9AFA50FF32").IsUnique();
+            entity.HasIndex(e => e.NomeUsuario, "UQ__Usuario__06940B9AAB0F06E6").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Cpf)

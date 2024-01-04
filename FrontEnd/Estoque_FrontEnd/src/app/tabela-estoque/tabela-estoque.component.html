@@ -3,8 +3,10 @@
     <div class="col">
       <div class="btn-group mb-3">
         <button type="button" class="btn btn-success btn-cadastro" (click)="abrirModalCadastroProduto()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-plus-fill me-2" viewBox="0 0 16 16">
-            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+            class="bi bi-file-earmark-plus-fill me-2" viewBox="0 0 16 16">
+            <path
+              d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0" />
           </svg>
           Cadastrar Produto
         </button>
@@ -36,7 +38,7 @@
     </div>
     <h2 class="text-center">Estoque</h2>
     <div class="btnFiltro">
-      <button type="button" class="btn btn-primary btn-sm" (click)="abrirModalFiltrarProduto()">
+      <button type="button" class="btn btn-primary btn-sm" (click)="openFiltro(modalFiltro)">
         Filtro
       </button>
     </div>
@@ -83,18 +85,55 @@
     </div>
   </div>
 </div>
+
 <ng-template #confirma let-modal>
   <div class="modal-confirma">
-      <div class="modal-header">
-          <h5 class="modal-title" id="modalExcluirLabel">Confirmar exclusão</h5>
-          <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+    <div class="modal-header">
+      <h5 class="modal-title" id="modalExcluirLabel">Confirmar exclusão</h5>
+      <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja excluir o Produto de ID: {{idProduto}}</p>
+    </div>
+    <div class="modal-footer justify-content-between  ">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="excluir()">Excluir</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalFiltro let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title fs-5">Filtro</h1>
+    <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
+        <input type="text" class="form-control" id="nomeProduto" [(ngModel)]="filtro.nomeProduto"
+          [ngModelOptions]="{standalone: true}">
       </div>
-      <div class="modal-body">
-          <p>Tem certeza que deseja excluir o Produto de ID: {{idProduto}}</p>
+      <div class="mb-3">
+        <label for="fabricante" class="col-form-label">Fabricante:</label>
+        <input type="text" class="form-control" id="fabricante" [(ngModel)]="filtro.fabricante"
+          [ngModelOptions]="{standalone: true}">
       </div>
-      <div class="modal-footer justify-content-between  ">
-          <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="excluir()">Excluir</button>
+      <div class="mb-3">
+        <label for="quantidade" class="col-form-label">Quantidade de:</label>
+        <input type="number" class="form-control" id="quantidade" [(ngModel)]="filtro.quantidadeDe"
+          [ngModelOptions]="{standalone: true}">
       </div>
+      <div class="mb-3">
+        <label for="quantidade" class="col-form-label">Quantidade ate:</label>
+        <input type="number" class="form-control" id="quantidade" [(ngModel)]="filtro.quantidadeAte"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" style="margin-right: 236px;" (click)="limparFiltro()">Limpar</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
+    <button type="button" class="btn btn-primary" (click)="filtrarProdutos()">Filtrar</button>
   </div>
 </ng-template>

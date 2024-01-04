@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { response } from 'express';
 import { LacamentosService } from '../services/lacamentos.service';
-import { FiltroModalComponent } from './filtro-modal/filtro-modal.component';
+import { FiltroProdutoViewModel } from '../model/filtroprodutoviewmodel';
 
 
 @Component({
@@ -23,12 +23,16 @@ export class TabelaEstoqueComponent {
   produtos: EstoqueViewModel[] = [];
   idProduto: number = 0
   produtoselecionado: number | null = null;
+  public filtro: FiltroProdutoViewModel = new FiltroProdutoViewModel();
+  produtosFiltro: EstoqueViewModel[] = [];
 
 
   constructor(
+    public bsModalRef: BsModalRef,
     private modalService: BsModalService,
     private estoqueService: EstoqueService,
     private modalServiceConfirmacao: NgbModal,
+    private modalServiceFiltro: NgbModal,
     private toastr: ToastrService,
   ) { }
 
@@ -74,6 +78,30 @@ export class TabelaEstoqueComponent {
     });
   }
 
+  openFiltro(content: any) {
+    this.modalServiceFiltro.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then((result: any) => {
+    }).catch((reason: any) => {
+    });
+  }
+
+  filtrarProdutos() {
+    this.estoqueService.filtrarProdutos(this.filtro).subscribe(
+      (data) => {
+        this.produtos = data;
+        this.modalServiceFiltro.dismissAll();
+      },
+      (error) => {
+        debugger;
+        this.toastr.error(error.error.error);
+        this.modalServiceFiltro.dismissAll();
+      }
+    );
+  }
+
+  limparFiltro() {
+    this.filtro = new FiltroProdutoViewModel();
+  }
+
 
   abrirModalCadastroProduto() {
     this.modalRef = this.modalService.show(CadastroProdutoModalComponent);
@@ -87,9 +115,6 @@ export class TabelaEstoqueComponent {
     this.modalRef = this.modalService.show(SaidaProdutoModalComponent);
   }
 
-  abrirModalFiltrarProduto() {
-    this.modalRef = this.modalService.show(FiltroModalComponent);
-  }
 
   abrirModalEditarProduto(produtoId: number) {
     this.produtoselecionado = produtoId;

@@ -4,6 +4,7 @@ import { LacamentosService } from '../services/lacamentos.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { log } from 'console';
+import { FiltroLogViewModel } from '../model/filtrologviewmodel';
 
 @Component({
   selector: 'app-lancamentos-estoque',
@@ -13,12 +14,14 @@ import { log } from 'console';
 export class LancamentosEstoqueComponent {
   lancamentos: LancamentosViewModel[] = []
   idLog: number = 0;
+  filtroLog: FiltroLogViewModel = new FiltroLogViewModel()
 
 
   constructor(
     private lacamentosService: LacamentosService,
     private modalServiceConfirmacao: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalserviceLogFiltro: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +31,7 @@ export class LancamentosEstoqueComponent {
   carregarLancamentos(): void {
     this.lacamentosService.consultarTodosLancamentos().subscribe({
       next: (response) => {
+        console.log(response)
         this.lancamentos = response;
       },
       error: (error) => { console.log('Erro ao obeter produtos', error) }
@@ -64,6 +68,29 @@ export class LancamentosEstoqueComponent {
           this.idLog = 0;
           this.carregarLancamentos();
         });
+  }
+
+  openFiltro(content: any) {
+    this.modalserviceLogFiltro.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then((result: any) => {
+    }).catch((reason: any) => {
+    });
+  }
+
+  filtrarLancamentos() {
+    this.lacamentosService.filtrarLog(this.filtroLog).subscribe(
+      (data) => {
+        this.lancamentos = data;
+        this.modalserviceLogFiltro.dismissAll();
+      },
+      (error) => {
+        this.toastr.error(error.error.error);
+        this.modalserviceLogFiltro.dismissAll();
+      }
+    );
+  }
+
+  limparFiltro() {
+    this.filtroLog = new FiltroLogViewModel();
   }
 
 }

@@ -3,6 +3,6 @@
     public struct TipoEntradaLog
     {
         public static readonly string Entrada = "Entrada";
-        public static readonly string Saida = "Saída";
+        public static readonly string Saida = "Saida";
     }
 }

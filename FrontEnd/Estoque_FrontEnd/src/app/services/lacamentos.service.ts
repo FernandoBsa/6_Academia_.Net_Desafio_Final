@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { LancamentosViewModel } from '../model/lancamentosviewmodel';
 import { Observable } from 'rxjs';
 import { EntradaSaidaViewModel } from '../model/entradasaidaviewmodel';
+import { FiltroLogViewModel } from '../model/filtrologviewmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class LacamentosService {
 
   registrarSaidaProduto(saidaProduto: EntradaSaidaViewModel): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/Log/SaidaProduto`, saidaProduto);
+  }
+
+  filtrarLog(filtroLog: FiltroLogViewModel): Observable<LancamentosViewModel[]> {
+    return this.http.get<LancamentosViewModel[]>(`${this.apiUrl}/Log/FiltrarLogs`, { params: filtroLog as any });
   }
 
 }

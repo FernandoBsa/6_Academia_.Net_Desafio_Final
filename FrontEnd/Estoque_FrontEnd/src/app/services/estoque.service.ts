@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EstoqueViewModel } from '../model/estoqueviewmodel';
 import { CadastroViewModel } from '../model/cadastroviewmodel';
+import { FiltroProdutoViewModel } from '../model/filtroprodutoviewmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,8 @@ export class EstoqueService {
     return this.http.get<EstoqueViewModel>(`${this.apiUrl}/Estoque/ObterProduto/${produtoId}`);
   }
 
-  
+  filtrarProdutos(filtro: FiltroProdutoViewModel): Observable<EstoqueViewModel[]> {
+    return this.http.get<EstoqueViewModel[]>(`${this.apiUrl}/Estoque/FiltrarProdutos`, { params: filtro as any });
+  }
 
 }
