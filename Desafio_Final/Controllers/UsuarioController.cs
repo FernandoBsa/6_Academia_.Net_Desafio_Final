@@ -9,10 +9,10 @@ namespace Desafio_Final.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuárioController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioServices _usuarioServices;
-        public UsuárioController(IUsuarioServices usuarioServices)
+        public UsuarioController(IUsuarioServices usuarioServices)
         {
             _usuarioServices = usuarioServices;
         }

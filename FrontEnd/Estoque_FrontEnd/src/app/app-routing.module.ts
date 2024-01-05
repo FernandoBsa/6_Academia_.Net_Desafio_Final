@@ -7,7 +7,7 @@ import { LoginEstoqueComponent } from './login-estoque/login-estoque.component';
 import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.component';
 
 const routes: Routes = [
-{ path: '', redirectTo: '/home', pathMatch: 'full' },
+{ path: '', redirectTo: '/login', pathMatch: 'full' },
 { path: 'home', component: HomeComponent },
 { path: 'estoque', component: TabelaEstoqueComponent },
 { path: 'lancamentos', component: LancamentosEstoqueComponent },

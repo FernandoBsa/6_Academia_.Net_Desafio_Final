@@ -6,16 +6,16 @@
                     <h2 class="card-title text-center mb-5 fw-bold fs-5">Login</h2>
                     <form>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingUsername" placeholder="Usuario">
+                            <input type="text" class="form-control" id="floatingUsername" placeholder="Usuario" [(ngModel)]="loginUser.NomeUsuario" [ngModelOptions]="{standalone: true}">
                             <label for="floatingUsername">Usuario</label>
                         </div>
                         <div class="form-floating mb-5">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Senha">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" [(ngModel)]="loginUser.Senha" [ngModelOptions]="{standalone: true}">
                             <label for="floatingPassword">Senha</label>
                         </div>
                         <div class="d-grid">
                             <button class="btn btn-primary btn-login text-uppercase fw-bold"
-                                type="submit">Entrar</button>
+                                type="submit" (click)="fazerLogin()">Entrar</button>
                         </div>
                     </form>
                 </div>

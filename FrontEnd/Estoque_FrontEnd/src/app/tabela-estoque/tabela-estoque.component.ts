@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { CadastroProdutoModalComponent } from './cadastro-produto-modal/cadastro-produto-modal.component'
-import { EntradaProdutoModalComponent } from './entrada-produto-modal/entrada-produto-modal.component';
-import { SaidaProdutoModalComponent } from './saida-produto-modal/saida-produto-modal.component';
 import { EstoqueService } from '../services/estoque.service';
 import { EstoqueViewModel } from '../model/estoqueviewmodel';
 import { EditarProdutoModalComponent } from './editar-produto-modal/editar-produto-modal.component';
@@ -11,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { response } from 'express';
 import { LacamentosService } from '../services/lacamentos.service';
 import { FiltroProdutoViewModel } from '../model/filtroprodutoviewmodel';
+import { CadastroViewModel } from '../model/cadastroviewmodel';
+import { EntradaSaidaViewModel } from '../model/entradasaidaviewmodel';
 
 
 @Component({
@@ -25,14 +24,21 @@ export class TabelaEstoqueComponent {
   produtoselecionado: number | null = null;
   public filtro: FiltroProdutoViewModel = new FiltroProdutoViewModel();
   produtosFiltro: EstoqueViewModel[] = [];
+  novoProduto: CadastroViewModel = new CadastroViewModel
+  entrada: EntradaSaidaViewModel = new EntradaSaidaViewModel ();
+  saida: EntradaSaidaViewModel = new EntradaSaidaViewModel();
 
 
   constructor(
     public bsModalRef: BsModalRef,
     private modalService: BsModalService,
     private estoqueService: EstoqueService,
+    private lancamentosService: LacamentosService,
     private modalServiceConfirmacao: NgbModal,
     private modalServiceFiltro: NgbModal,
+    private modalServiceCadastro: NgbModal,
+    private modalServiceEntrada: NgbModal,
+    private modalServiceSaida: NgbModal,
     private toastr: ToastrService,
   ) { }
 
@@ -67,7 +73,7 @@ export class TabelaEstoqueComponent {
     this.excluirProduto(this.idProduto)
   }
 
-  openConfirmacao(content: any, id: number) {
+  openExcluir(content: any, id: number) {
     this.idProduto = id;
     this.modalServiceConfirmacao.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result: any) => {
       this.idProduto = 0;
@@ -91,7 +97,6 @@ export class TabelaEstoqueComponent {
         this.modalServiceFiltro.dismissAll();
       },
       (error) => {
-        debugger;
         this.toastr.error(error.error.error);
         this.modalServiceFiltro.dismissAll();
       }
@@ -102,17 +107,79 @@ export class TabelaEstoqueComponent {
     this.filtro = new FiltroProdutoViewModel();
   }
 
-
-  abrirModalCadastroProduto() {
-    this.modalRef = this.modalService.show(CadastroProdutoModalComponent);
+  openCadastro(content: any) {
+    this.modalServiceCadastro.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then((result: any) => {
+      this.carregarProdutos();
+    }).catch((reason: any) => {
+      this.carregarProdutos();
+    });
   }
 
-  abrirModalEntradaProduto() {
-    this.modalRef = this.modalService.show(EntradaProdutoModalComponent);
+  cadastrarProduto(): void {
+    if (this.novoProduto.Quantidade == null) {
+      this.novoProduto.Quantidade = 0;
+    }
+    if (this.novoProduto.PrecoUnitario == null) {
+      this.novoProduto.PrecoUnitario = 0;
+    }
+    this.estoqueService.cadastrarProduto(this.novoProduto).subscribe({
+      next: (response) => {
+        this.toastr.success(response.success);
+        this.modalServiceFiltro.dismissAll();
+      },
+      error: (error) => {
+        this.toastr.error(error.error.error)
+        this.modalServiceFiltro.dismissAll();
+      }
+    });
   }
 
-  abrirModalSaidaProduto() {
-    this.modalRef = this.modalService.show(SaidaProdutoModalComponent);
+  cadastrar() {
+    this.cadastrarProduto();
+  }
+
+  registrarEntrada(): void {
+    this.lancamentosService.registrarEntradaProduto(this.entrada).subscribe({
+      next: (response) => {
+        this.toastr.success(response.success);
+        this.modalServiceFiltro.dismissAll();
+      },
+      error: (error) => {
+        this.toastr.error(error.error.error)
+        this.modalServiceFiltro.dismissAll();
+      }
+    })
+  }
+
+  openEntrada(content: any) {
+    this.modalServiceEntrada.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then((result: any) => {
+      this.carregarProdutos();
+    }).catch((reason: any) => {
+      this.carregarProdutos();
+    });
+  }
+
+  registrarSaida(): void {
+    this.lancamentosService.registrarSaidaProduto(this.saida).subscribe({
+      next: (response) => {
+        debugger;
+        this.toastr.success(response.success);
+        this.modalServiceFiltro.dismissAll();
+      },
+      error: (error) => {
+        debugger;
+        this.toastr.error(error.error.error)
+        this.modalServiceFiltro.dismissAll();
+      }
+    })
+  }
+
+  openSaida(content: any) {
+    this.modalServiceSaida.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then((result: any) => {
+      this.carregarProdutos();
+    }).catch((reason: any) => {
+      this.carregarProdutos();
+    });
   }
 
 

@@ -2,7 +2,7 @@
   <div class="row d-flex align-items-center">
     <div class="col">
       <div class="btn-group mb-3">
-        <button type="button" class="btn btn-success btn-cadastro" (click)="abrirModalCadastroProduto()">
+        <button type="button" class="btn btn-success btn-cadastro" (click)="openCadastro(modalCadastro)">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
             class="bi bi-file-earmark-plus-fill me-2" viewBox="0 0 16 16">
             <path
@@ -14,7 +14,7 @@
     </div>
     <div class="col text-end">
       <div class="btn-group mb-3">
-        <button type="button" class="btn btn-outline-success" (click)="abrirModalEntradaProduto()">
+        <button type="button" class="btn btn-outline-success" (click)="openEntrada(modalEntrada)">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
             class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -24,7 +24,7 @@
           </svg>
           Entrada Produto
         </button>
-        <button type="button" class="btn btn-outline-danger" (click)="abrirModalSaidaProduto()">
+        <button type="button" class="btn btn-outline-danger" (click)="openSaida(modalSaida)">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
             class="bi bi-box-arrow-right" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -70,7 +70,7 @@
                 </svg>
                 Editar
               </button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="openConfirmacao(confirma, produto.id)">
+              <button type="button" class="btn btn-danger btn-sm" (click)="openExcluir(modalExcluir, produto.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-file-earmark-x-fill" viewBox="0 0 16 16">
                   <path
@@ -86,7 +86,7 @@
   </div>
 </div>
 
-<ng-template #confirma let-modal>
+<ng-template #modalExcluir let-modal>
   <div class="modal-confirma">
     <div class="modal-header">
       <h5 class="modal-title" id="modalExcluirLabel">Confirmar exclusão</h5>
@@ -135,5 +135,86 @@
     <button type="button" class="btn btn-primary" style="margin-right: 236px;" (click)="limparFiltro()">Limpar</button>
     <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
     <button type="button" class="btn btn-primary" (click)="filtrarProdutos()">Filtrar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalCadastro let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title fs-5">Novo Produto</h1>
+    <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
+        <input [(ngModel)]="novoProduto.NomeProduto" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+          id="nomeProduto">
+      </div>
+      <div class="mb-3">
+        <label for="fabricante" class="col-form-label">Fabricante:</label>
+        <input [(ngModel)]="novoProduto.Fabricante" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+          id="fabricante">
+      </div>
+      <div class="mb-3">
+        <label for="quantidade" class="col-form-label">Quantidade:</label>
+        <input [(ngModel)]="novoProduto.Quantidade" [ngModelOptions]="{standalone: true}" type="number" class="form-control"
+          id="quantidade">
+      </div>
+      <div class="mb-3">
+        <label for="precoUnitario" class="col-form-label">Preço Unitário:</label>
+        <input [(ngModel)]="novoProduto.PrecoUnitario" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+          id="precoUnitario">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
+    <button type="button" class="btn btn-primary" (click)="cadastrar()">Salvar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalEntrada let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title fs-5">Registrar Entrada de Produto</h1>
+    <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+        <div class="mb-3">
+          <label for="produtoId" class="col-form-label">Id do Produto:</label>
+          <input type="text" class="form-control" id="produtoId" [(ngModel)]="entrada.produtoId" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="quantidade" class="col-form-label">Quantidade:</label>
+          <input type="number" class="form-control" id="quantidade" [(ngModel)]="entrada.quantidade" [ngModelOptions]="{standalone: true}">
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
+    <button type="button" class="btn btn-success"(click)="registrarEntrada()">Registrar Entrada</button>
+  </div>
+</ng-template>
+
+<ng-template #modalSaida let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title fs-5">Registrar Saída de Produto</h1>
+    <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+        <div class="mb-3">
+            <label for="produtoId" class="col-form-label">Id do Produto:</label>
+            <input type="text" class="form-control" id="produtoId" [(ngModel)]="saida.produtoId" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="mb-3">
+            <label for="quantidade" class="col-form-label">Quantidade:</label>
+            <input type="number" class="form-control" id="quantidade" [(ngModel)]="saida.quantidade" [ngModelOptions]="{standalone: true}">
+          </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
+    <button type="button" class="btn btn-danger"(click)="registrarSaida()">Registrar Saída</button>
   </div>
 </ng-template>
