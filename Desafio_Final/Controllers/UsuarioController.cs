@@ -21,36 +21,36 @@ namespace Desafio_Final.Controllers
         [Route("Cadastrar")]
         public IActionResult CadastrarUsuario(CasdastroUsuarioViewModel usuario)
         {
-            if (usuario == null)
-            {
-                return BadRequest("Dados de usuário inválidos.");
-            }
-
-            if (usuario.Senha != usuario.ConfirmaSenha)
-            {
-                return BadRequest("Senhas nao conferem.");
-            }
-
-            if (_usuarioServices.ConsultarUsuarioExiste(usuario.NomeUsuario))
-            {
-                return BadRequest("Usuario ja cadastrado.");
-            }
-
             try
             {
+                if (usuario == null)
+                {
+                    return BadRequest(new { error = "Dados de usuário inválidos." });
+                }
+
+                if (usuario.Senha != usuario.ConfirmaSenha)
+                {
+                    return BadRequest(new { error = "Senhas não conferem." });
+                }
+
+                if (_usuarioServices.ConsultarUsuarioExiste(usuario.NomeUsuario))
+                {
+                    return BadRequest(new { error = "Usuário já cadastrado." });
+                }
+
                 bool cadastrou = _usuarioServices.CadastroUsuario(usuario);
                 if (cadastrou)
                 {
-                    return Ok("Usuário cadastrado com sucesso");
+                    return Ok(new { success = "Usuário cadastrado com sucesso" });
                 }
                 else
                 {
-                    return BadRequest("Nao foi possivel cadastrar o usuario.");
+                    return BadRequest(new { error = "Não foi possível cadastrar o usuário." });
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro interno do servidor: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { error = $"Erro interno do servidor: {ex.Message}" });
             }
         }
 
@@ -59,17 +59,24 @@ namespace Desafio_Final.Controllers
         [Route("Login")]
         public IActionResult Login([FromBody] LoginViewModel loginViewModel)
         {
-            if (loginViewModel == null)
+            try
             {
-                return BadRequest("Dados de login inválidos");
-            }
+                if (loginViewModel == null)
+                {
+                    return BadRequest(new { error = "Dados de login inválidos" });
+                }
 
-            if (_usuarioServices.ValidarLogin(loginViewModel))
+                if (_usuarioServices.ValidarLogin(loginViewModel))
+                {
+                    return Ok(new { success = "Login bem-sucedido" });
+                }
+
+                return Unauthorized(new { error = "Usuário ou senha incorretos" });
+            }
+            catch (Exception ex)
             {
-                return Ok();
+                return StatusCode(StatusCodes.Status500InternalServerError, new { error = $"Erro interno do servidor: {ex.Message}" });
             }
-
-            return Unauthorized("Usuário ou senha incorretos");
         }
     }
 }
