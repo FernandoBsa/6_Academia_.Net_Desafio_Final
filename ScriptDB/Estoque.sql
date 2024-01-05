@@ -29,16 +29,17 @@ CREATE TABLE LogEntradaSaida (
     ProdutoID INT,
     Quantidade INT,
     TipoMovimento varchar(10),
-    DataMovimento DATETIME,
+    DataMovimento DATE,
     FOREIGN KEY (ProdutoID) REFERENCES Estoque(ID)
 );
+
 
 select * from LogEntradaSaida
 
 create login adm with password='senha1234'
 create user Fernando from login adm;
 
-INSERT INTO CadastroUsuario (Usuario, Senha, NomeCompleto, DataNascimento, CPF, Email)
+INSERT INTO Usuario (NomeUsuario, Senha, NomeCompleto, DataNascimento, CPF, Email)
 VALUES
 ('Fernandobsa', '123456', 'Fernando Barros de sa', '1994-12-08', '104.498.264-06', 'fernandobarrosdesak@gmail.com')
 
