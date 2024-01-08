@@ -24,6 +24,10 @@ namespace Desafio_Final.Controllers
         {
             try
             {
+                if (logViewModel.ProdutoId <= 0 || logViewModel.Quantidade <= 0)
+                {
+                    return BadRequest (new { error = "Todos os campos são obrigatórios." });
+                }
 
                 if (logViewModel == null)
                 {
@@ -53,6 +57,11 @@ namespace Desafio_Final.Controllers
         {
             try
             {
+                if (logViewModel.ProdutoId <= 0 || logViewModel.Quantidade <= 0)
+                {
+                    return BadRequest(new { error = "Todos os campos são obrigatórios." });
+                }
+
                 var result = _logService.SaidaProduto(logViewModel);
 
                 if (result)

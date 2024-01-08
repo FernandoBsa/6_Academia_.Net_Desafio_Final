@@ -5,14 +5,15 @@ import { LancamentosEstoqueComponent } from './lancamentos-estoque/lancamentos-e
 import { HomeComponent } from './home/home.component';
 import { LoginEstoqueComponent } from './login-estoque/login-estoque.component';
 import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.component';
+import { AuthguardService } from './services/authguard.service'
 
 const routes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full' },
-{ path: 'home', component: HomeComponent },
-{ path: 'estoque', component: TabelaEstoqueComponent },
-{ path: 'lancamentos', component: LancamentosEstoqueComponent },
+{ path: 'home', component: HomeComponent, canActivate: [AuthguardService]},
+{ path: 'estoque', component: TabelaEstoqueComponent, canActivate: [AuthguardService]},
+{ path: 'lancamentos', component: LancamentosEstoqueComponent, canActivate: [AuthguardService] },
 { path: 'login', component: LoginEstoqueComponent },
-{ path: 'contato', component: ContatoEstoqueComponent },
+{ path: 'contato', component: ContatoEstoqueComponent,canActivate: [AuthguardService] },
 { path: '**', redirectTo: '/home'}
 ];
 

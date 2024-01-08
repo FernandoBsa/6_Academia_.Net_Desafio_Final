@@ -22,19 +22,38 @@ export class LoginService {
     return this.http.post(`${this.apiUrl}/Usuario/Login`, user);
   }
 
-  userAutenticado():boolean {
-    return this.usuarioAutenticado;
-  }
+   userAutenticado():boolean {
+    if(typeof sessionStorage !== 'undefined') {
+      return sessionStorage.getItem('usuarioAutenticado') === 'true'
+    }
+    else {
+      return false;
+    }    
+   }
 
   setAutenticacao(value: boolean){
     this.usuarioAutenticado = value;
+    sessionStorage.setItem('usuarioAutenticado', value.toString());
   }
 
   setNomeLogin(value: string){
     this.nomeLogin = value;
+    sessionStorage.setItem('nomeLogin', value);
   }
 
   getNomeLogin(): string {
-    return this.nomeLogin;
+    if(typeof sessionStorage !== 'undefined') {
+      return sessionStorage.getItem('nomeLogin') || '';
+    }
+    else {
+      return '';
+    }   
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('usuarioAutenticado');
+    sessionStorage.removeItem('nomeLogin');
+    this.usuarioAutenticado = false;
+    this.nomeLogin = '';
   }
 }

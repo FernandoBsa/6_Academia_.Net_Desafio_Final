@@ -27,16 +27,6 @@ namespace Desafio_Final.Services
                     return false;
                 }
 
-                if (logViewModel.ProdutoId <= 0)
-                {
-                    return false;
-                }
-
-                if (logViewModel.Quantidade <= 0)
-                {
-                    return false;
-                }
-
                 produto.Quantidade += logViewModel.Quantidade;
 
                 var logEntradaSaida = new LogEntradaSaida

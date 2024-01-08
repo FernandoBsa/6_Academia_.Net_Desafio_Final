@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { log } from 'console';
 import { FiltroLogViewModel } from '../model/filtrologviewmodel';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lancamentos-estoque',
@@ -21,7 +23,9 @@ export class LancamentosEstoqueComponent {
     private lacamentosService: LacamentosService,
     private modalServiceConfirmacao: NgbModal,
     private toastr: ToastrService,
-    private modalserviceLogFiltro: NgbModal
+    private modalserviceLogFiltro: NgbModal,
+    private loginService: LoginService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {

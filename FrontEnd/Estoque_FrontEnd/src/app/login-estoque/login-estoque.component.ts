@@ -29,8 +29,7 @@ export class LoginEstoqueComponent {
         this.loginService.setAutenticacao(false);
         this.toastr.error(error.error.error);
       }
-    }
-    );
+    });
   }
 
 }

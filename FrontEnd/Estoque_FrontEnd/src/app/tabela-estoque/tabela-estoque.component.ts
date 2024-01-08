@@ -11,6 +11,8 @@ import { CadastroViewModel } from '../model/cadastroviewmodel';
 import { EntradaSaidaViewModel } from '../model/entradasaidaviewmodel';
 import { disableDebugTools } from '@angular/platform-browser';
 import { error } from 'node:console';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,7 +35,6 @@ export class TabelaEstoqueComponent {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private modalService: BsModalService,
     private estoqueService: EstoqueService,
     private lancamentosService: LacamentosService,
     private modalServiceConfirmacao: NgbModal,
@@ -43,6 +44,8 @@ export class TabelaEstoqueComponent {
     private modalServiceSaida: NgbModal,
     private modalSerivceEditar: NgbModal,
     private toastr: ToastrService,
+    private loginService: LoginService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -210,7 +213,7 @@ export class TabelaEstoqueComponent {
           this.toastr.error(error.error.error);
         }
       });
-    this.modalSerivceEditar.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result: any) => {
+    this.modalSerivceEditar.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then((result: any) => {
       this.carregarProdutos();
     }).catch((reason: any) => {
       this.carregarProdutos();
