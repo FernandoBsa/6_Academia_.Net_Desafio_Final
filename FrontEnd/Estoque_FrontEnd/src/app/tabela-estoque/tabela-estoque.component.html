@@ -62,7 +62,7 @@
             <td>{{ produto.quantidade }}</td>
             <td>{{ produto.precoUnitario }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-sm" (click)="abrirModalEditarProduto(produto.id)">
+              <button type="button" class="btn btn-primary btn-sm" (click)="openEditar(modalEdital, produto.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-pencil-fill" viewBox="0 0 16 16">
                   <path
@@ -216,5 +216,44 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
     <button type="button" class="btn btn-danger"(click)="registrarSaida()">Registrar Saída</button>
+  </div>
+</ng-template>
+
+<ng-template #modalEdital let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title fs-5">Novo Produto</h1>
+    <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="id" class="col-form-label">ID do Produto</label>
+        <input type="text" class="form-control" id="id" readonly [(ngModel)]="produtoEditar.id" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="mb-3">
+        <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
+        <input type="text" class="form-control" id="nomeProduto" [(ngModel)]="produtoEditar.nomeProduto"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="mb-3">
+        <label for="fabricante" class="col-form-label">Fabricante:</label>
+        <input type="text" class="form-control" id="fabricante" [(ngModel)]="produtoEditar.fabricante"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="mb-3">
+        <label for="quantidade" class="col-form-label">Quantidade:</label>
+        <input type="number" class="form-control" id="quantidade" [(ngModel)]="produtoEditar.quantidade"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="mb-3">
+        <label for="precoUnitario" class="col-form-label">Preço Unitário:</label>
+        <input type="text" class="form-control" id="precoUnitario" [(ngModel)]="produtoEditar.precoUnitario"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
+    <button type="button" class="btn btn-primary" (click)="salvarAlteracoes()">Salvar</button>
   </div>
 </ng-template>

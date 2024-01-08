@@ -17,8 +17,6 @@ export class AppComponent {
 
   nomeLogin() {
     return this.loginService.getNomeLogin();
-  }
-
-  
+  } 
 
 }

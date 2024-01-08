@@ -12,7 +12,6 @@ import { LancamentosEstoqueComponent } from './lancamentos-estoque/lancamentos-e
 import { HomeComponent } from './home/home.component';
 import { LoginEstoqueComponent } from './login-estoque/login-estoque.component';
 import { ContatoEstoqueComponent } from './contato-estoque/contato-estoque.component';
-import { EditarProdutoModalComponent } from './tabela-estoque/editar-produto-modal/editar-produto-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { Router } from 'express';
@@ -25,7 +24,6 @@ import { Router } from 'express';
     HomeComponent,
     LoginEstoqueComponent,
     ContatoEstoqueComponent,
-    EditarProdutoModalComponent,
   ],
   imports: [
     BrowserModule,
