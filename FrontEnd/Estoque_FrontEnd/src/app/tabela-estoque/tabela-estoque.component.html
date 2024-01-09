@@ -42,7 +42,7 @@
         Filtro
       </button>
     </div>
-    <div class="table-container" style="max-height: 600px; overflow-y: auto;">
+    <div class="table-container" style="max-height: 700px; overflow-y: auto;">
       <table class="table mx-auto table-bordered table-hover">
         <thead class="cabecalho">
           <tr>
@@ -84,10 +84,12 @@
       </table>
     </div>
   </div>
-  <div class="btn-group mb-3">
-    <button type="button" class="btn btn-primary" (click)="gerarRelatorioPdf()">
-      Emitir Relatorio
-    </button>
+  <div class="col text-end">
+    <div class="btn-group mb-3">
+      <button type="button" class="btn btn-primary" (click)="gerarRelatorioPdf()">
+        Emitir Relatorio
+      </button>
+    </div>
   </div>
 </div>
 
@@ -152,23 +154,23 @@
     <form>
       <div class="mb-3">
         <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
-        <input [(ngModel)]="novoProduto.NomeProduto" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-          id="nomeProduto">
+        <input [(ngModel)]="novoProduto.NomeProduto" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control" id="nomeProduto">
       </div>
       <div class="mb-3">
         <label for="fabricante" class="col-form-label">Fabricante:</label>
-        <input [(ngModel)]="novoProduto.Fabricante" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-          id="fabricante">
+        <input [(ngModel)]="novoProduto.Fabricante" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control" id="fabricante">
       </div>
       <div class="mb-3">
         <label for="quantidade" class="col-form-label">Quantidade:</label>
-        <input [(ngModel)]="novoProduto.Quantidade" [ngModelOptions]="{standalone: true}" type="number" class="form-control"
-          id="quantidade">
+        <input [(ngModel)]="novoProduto.Quantidade" [ngModelOptions]="{standalone: true}" type="number"
+          class="form-control" id="quantidade">
       </div>
       <div class="mb-3">
         <label for="precoUnitario" class="col-form-label">Preço Unitário:</label>
-        <input [(ngModel)]="novoProduto.PrecoUnitario" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-          id="precoUnitario">
+        <input [(ngModel)]="novoProduto.PrecoUnitario" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control" id="precoUnitario">
       </div>
     </form>
   </div>
@@ -185,19 +187,21 @@
   </div>
   <div class="modal-body">
     <form>
-        <div class="mb-3">
-          <label for="produtoId" class="col-form-label">Id do Produto:</label>
-          <input type="text" class="form-control" id="produtoId" [(ngModel)]="entrada.produtoId" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="mb-3">
-          <label for="quantidade" class="col-form-label">Quantidade:</label>
-          <input type="number" class="form-control" id="quantidade" [(ngModel)]="entrada.quantidade" [ngModelOptions]="{standalone: true}">
-        </div>
+      <div class="mb-3">
+        <label for="produtoId" class="col-form-label">Id do Produto:</label>
+        <input type="text" class="form-control" id="produtoId" [(ngModel)]="entrada.produtoId"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="mb-3">
+        <label for="quantidade" class="col-form-label">Quantidade:</label>
+        <input type="number" class="form-control" id="quantidade" [(ngModel)]="entrada.quantidade"
+          [ngModelOptions]="{standalone: true}">
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
-    <button type="button" class="btn btn-success"(click)="registrarEntrada()">Registrar Entrada</button>
+    <button type="button" class="btn btn-success" (click)="registrarEntrada()">Registrar Entrada</button>
   </div>
 </ng-template>
 
@@ -208,19 +212,21 @@
   </div>
   <div class="modal-body">
     <form>
-        <div class="mb-3">
-            <label for="produtoId" class="col-form-label">Id do Produto:</label>
-            <input type="text" class="form-control" id="produtoId" [(ngModel)]="saida.produtoId" [ngModelOptions]="{standalone: true}">
-          </div>
-          <div class="mb-3">
-            <label for="quantidade" class="col-form-label">Quantidade:</label>
-            <input type="number" class="form-control" id="quantidade" [(ngModel)]="saida.quantidade" [ngModelOptions]="{standalone: true}">
-          </div>
+      <div class="mb-3">
+        <label for="produtoId" class="col-form-label">Id do Produto:</label>
+        <input type="text" class="form-control" id="produtoId" [(ngModel)]="saida.produtoId"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="mb-3">
+        <label for="quantidade" class="col-form-label">Quantidade:</label>
+        <input type="number" class="form-control" id="quantidade" [(ngModel)]="saida.quantidade"
+          [ngModelOptions]="{standalone: true}">
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('fechar')">Fechar</button>
-    <button type="button" class="btn btn-danger"(click)="registrarSaida()">Registrar Saída</button>
+    <button type="button" class="btn btn-danger" (click)="registrarSaida()">Registrar Saída</button>
   </div>
 </ng-template>
 
@@ -233,7 +239,8 @@
     <form>
       <div class="mb-3">
         <label for="id" class="col-form-label">ID do Produto</label>
-        <input type="text" class="form-control" id="id" readonly [(ngModel)]="produtoEditar.id" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control" id="id" readonly [(ngModel)]="produtoEditar.id"
+          [ngModelOptions]="{standalone: true}">
       </div>
       <div class="mb-3">
         <label for="nomeProduto" class="col-form-label">Nome do Produto:</label>
