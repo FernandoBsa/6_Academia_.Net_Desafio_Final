@@ -1,27 +1,41 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card border-0 shadow rounded-3 my-5">
-                <div class="card-body p-4 p-sm-5">
-                    <h2 class="card-title text-center mb-5 fw-bold fs-5">Login</h2>
-                    <form>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingUsername" placeholder="Usuario"
-                                [(ngModel)]="loginUser.NomeUsuario" [ngModelOptions]="{standalone: true}">
-                            <label for="floatingUsername">Usuario</label>
-                        </div>
-                        <div class="form-floating mb-5">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Senha"
-                                [(ngModel)]="loginUser.Senha" [ngModelOptions]="{standalone: true}">
-                            <label for="floatingPassword">Senha</label>
-                        </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
-                                (click)="fazerLogin()">Entrar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container px-4 py-5 mx-auto">
+  <div class="card card0">
+      <div class="d-flex flex-lg-row flex-column-reverse">
+          <div class="card card1">
+              <div class="row justify-content-center my-auto">
+                  <div class="col-md-8 col-10 my-5">
+                    <div class="row justify-content-center px-3 mb-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+                      </svg>
+                  </div>
+                      <h2 class="mb-5 text-center heading">Estoque Facil</h2>
+
+                      <h6 class="msg-info">Entre com sua conta</h6>
+
+                      <div class="form-group">
+                          <label class="form-control-label text-muted">Usuario</label>
+                          <input type="text" id="email" name="email" placeholder="Usuario" class="form-control" [(ngModel)]="loginUser.NomeUsuario" [ngModelOptions]="{standalone: true}">
+                      </div>
+
+                      <div class="form-group">
+                          <label class="form-control-label text-muted">Senha</label>
+                          <input type="password" id="psw" name="psw" placeholder="Senha" class="form-control" [(ngModel)]="loginUser.Senha" [ngModelOptions]="{standalone: true}">
+                      </div>
+
+                      <div class="row justify-content-center my-3 px-3">
+                          <button class="btn-block btn-color" (click)="fazerLogin()">Login</button>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          <div class="card card2">
+              <div class="my-auto mx-md-5 px-md-5 right">
+                  <h3 class="text-white">Bem-vindo ao Estoque Fácil: Gerenciamento Simplificado de Estoque</h3>
+                  <small class="text-white">Explore todas as funcionalidades poderosas do Estoque Fácil, projetado para tornar a gestão do seu inventário uma experiência intuitiva e eficiente.</small>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
