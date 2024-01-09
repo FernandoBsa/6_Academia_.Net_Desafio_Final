@@ -7,6 +7,7 @@ import { log } from 'console';
 import { FiltroLogViewModel } from '../model/filtrologviewmodel';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-lancamentos-estoque',
@@ -96,5 +97,64 @@ export class LancamentosEstoqueComponent {
   limparFiltro() {
     this.filtroLog = new FiltroLogViewModel();
   }
+
+  gerarRelatorioPdfLancamentos() {
+    const doc = new jsPDF();
+  
+    doc.text('Relatório de Lançamentos', 75, 10);
+  
+    const data = [
+      ['ID', 'Produto ID', 'Nome', 'Movimento', 'Quantidade', 'Data'],
+      ...this.lancamentos.map(lancamento => [
+        lancamento.id,
+        lancamento.produtoId,
+        lancamento.nomeProduto,
+        lancamento.tipoMovimento,
+        lancamento.quantidade,
+        this.formatarData(lancamento.dataMovimento)
+      ]),
+    ];
+  
+    let startY = 20;
+    const rowHeight = 10;
+    let currentY = startY;
+    const marginLeft = 10;
+  
+    const headers = data[0];
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    for (let i = 0; i < headers.length; i++) {
+      const headerText = String(headers[i]);
+      doc.text(headerText, marginLeft + i * 30, currentY);
+    }
+  
+    currentY += rowHeight;
+  
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      for (let j = 0; j < row.length; j++) {
+        doc.text(String(row[j]), marginLeft + j * 30, currentY);
+      }
+      currentY += rowHeight;
+    }
+  
+    doc.save('Relatorio_Lancamentos.pdf');
+  }
+
+  formatarData(data: Date | null): string {
+    if (!data) {
+      return ''; 
+    }
+  
+    const dateObj = new Date(data);
+    const dia = String(dateObj.getDate()).padStart(2, '0');
+    const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const ano = dateObj.getFullYear();
+  
+    return `${dia}/${mes}/${ano}`;
+  }
+
 
 }

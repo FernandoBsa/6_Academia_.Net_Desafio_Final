@@ -13,6 +13,8 @@ import { disableDebugTools } from '@angular/platform-browser';
 import { error } from 'node:console';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { jsPDF} from 'jspdf'
+
 
 
 @Component({
@@ -233,7 +235,45 @@ export class TabelaEstoqueComponent {
     });
   }
 
+  gerarRelatorioPdf() {
+    const doc = new jsPDF();
+  
+    doc.text('Relatório de Produtos', 75, 10);
+  
+    const data = [
+      ['ID', 'Nome', 'Fabricante', 'Quantidade', 'Preço Unitário'],
+      ...this.produtos.map(produto => [produto.id, produto.nomeProduto, produto.fabricante, produto.quantidade, produto.precoUnitario]),
+    ];
+  
+    let startY = 20;
 
+    const rowHeight = 10;
+ 
+    let currentY = startY;
 
+    const marginLeft = 10;
+  
+    const headers = data[0];
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    for (let i = 0; i < headers.length; i++) {
+      const headerText = String(headers[i]);  
+      doc.text(headerText, marginLeft + i * 40, currentY);
+    }
+
+    currentY += rowHeight;
+  
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      for (let j = 0; j < row.length; j++) {
+        doc.text(String(row[j]), marginLeft + j * 40, currentY);
+      }
+      currentY += rowHeight;
+    }
+    
+    doc.save('Relatorio_Produtos.pdf');
+  }
 
 }
