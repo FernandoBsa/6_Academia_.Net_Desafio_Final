@@ -3,5 +3,6 @@ export class FiltroLogViewModel {
     public NomeProduto: string = '';
     public Quantidade?: number;
     public TipoMovimento?: string = '';
-    public DataMovimento?: Date;
+    public DataMovimentoDe?: Date;
+    public DataMovimentoAte?: Date;
 }

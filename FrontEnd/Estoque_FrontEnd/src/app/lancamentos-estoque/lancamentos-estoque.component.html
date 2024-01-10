@@ -7,7 +7,7 @@
                   Filtro
                 </button>
               </div>
-            <div class="table-container" style="max-height: 700px; overflow-y: auto;">
+            <div class="table-container" style="max-height: 650px; overflow-y: auto;">
                 <table class="table mx-auto table-bordered table-hover">
                     <thead>
                         <tr class="cabecalho">
@@ -16,7 +16,7 @@
                             <th scope="col" style="width: 15%;">Nome do Produto</th>
                             <th scope="col" style="width: 10%;">Tipo de Movimento</th>
                             <th scope="col" style="width: 5%;">Quantidade</th>
-                            <th scope="col" style="width: 10%;">Data do Movimento</th>
+                            <th scope="col" style="width: 8%;">Data do Movimento</th>
                             <th scope="col" style="width: 5%;">Ações</th>
                         </tr>
                     </thead>
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="col text-end">
+    <div class="col text-end mt-4">
       <div class="btn-group mb-3">
         <button type="button" class="btn btn-primary" (click)="gerarRelatorioPdfLancamentos()">
           Emitir Relatorio
@@ -90,8 +90,12 @@
           <input type="text" class="form-control" id="tipomovimento" [(ngModel)]="filtroLog.TipoMovimento" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="mb-3">
-          <label for="datamovimento" class="col-form-label">Data de Movimento:</label>
-          <input type="date" class="form-control" id="datamovimento" [(ngModel)]="filtroLog.DataMovimento" [ngModelOptions]="{standalone: true}">
+          <label for="datamovimentode" class="col-form-label">Data de Movimento De:</label>
+          <input type="date" class="form-control" id="datamovimentode" [(ngModel)]="filtroLog.DataMovimentoDe" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="datamovimentoate" class="col-form-label">Data de Movimento Ate:</label>
+          <input type="date" class="form-control" id="datamovimentoate" [(ngModel)]="filtroLog.DataMovimentoAte" [ngModelOptions]="{standalone: true}">
         </div>
       </form>
     </div>

@@ -6,6 +6,7 @@
         public string? NomeProduto { get; set; }
         public int? Quantidade { get; set; }
         public string? TipoMovimento { get; set; }
-        public DateTime? DataMovimento { get; set; }
+        public DateTime? DataMovimentoDe { get; set; }
+        public DateTime? DataMovimentoAte { get; set; }
     }
 }

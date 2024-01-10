@@ -128,9 +128,14 @@ namespace Desafio_Final.Services
                 query = query.Where(e => e.TipoMovimento == filtro.TipoMovimento);
             }
 
-            if (filtro.DataMovimento != null)
+            if (filtro.DataMovimentoDe != null)
             {
-                query = query.Where(e => e.DataMovimento == filtro.DataMovimento);
+                query = query.Where(e => e.DataMovimento >= filtro.DataMovimentoDe);
+            }
+
+            if (filtro.DataMovimentoAte != null)
+            {
+                query = query.Where(e => e.DataMovimento <= filtro.DataMovimentoAte);
             }
 
             var result = query.ToList();
