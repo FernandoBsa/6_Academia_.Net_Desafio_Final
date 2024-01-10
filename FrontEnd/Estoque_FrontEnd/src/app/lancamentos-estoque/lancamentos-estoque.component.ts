@@ -39,7 +39,7 @@ export class LancamentosEstoqueComponent {
         console.log(response)
         this.lancamentos = response;
       },
-      error: (error) => { console.log('Erro ao obeter produtos', error) }
+      error: (error) => { console.log('Erro ao obter produtos', error) }
     }
     );
   }
@@ -47,7 +47,6 @@ export class LancamentosEstoqueComponent {
   excluirLog(logId: number): void {
     this.lacamentosService.excluirLog(logId).subscribe({
       next: (response) => {
-        console.log(response);
         this.toastr.success(response.success)
         this.modalServiceConfirmacao.dismissAll();
       },

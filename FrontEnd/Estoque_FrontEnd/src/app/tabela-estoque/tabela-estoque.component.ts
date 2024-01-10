@@ -59,7 +59,7 @@ export class TabelaEstoqueComponent {
       next: (response) => {
         this.produtos = response;
       },
-      error: (error) => { console.log('Erro ao obeter produtos', error) }
+      error: (error) => { console.log('Erro ao obter produtos', error) }
     }
     );
   }
